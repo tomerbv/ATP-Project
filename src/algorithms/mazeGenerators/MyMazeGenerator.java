@@ -1,9 +1,5 @@
 package algorithms.mazeGenerators;
-
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
 
 public class MyMazeGenerator extends AMazeGenerator{
 
@@ -30,18 +26,15 @@ public class MyMazeGenerator extends AMazeGenerator{
             //first we check if a the cell is the goal so the path will exist without doubt
             if(neighbor.getRowIndex() == goal.getRowIndex() && neighbor.getColumnIndex() == goal.getColumnIndex()) {
                 maze.set(neighbor.getRowIndex(), neighbor.getColumnIndex(), 0);
-                neighbors.remove(neighbor);
             }
             // then if that neighbor can be a path we set him to the value 0 and add his neighbors to the arraylist
             else if(maze.GetPosition(neighbor.getRowIndex(),neighbor.getColumnIndex()) != 0 && CanBePath(neighbor, maze, rows, columns)){
                 maze.set(neighbor.getRowIndex(),neighbor.getColumnIndex(),0);
                 neighbors.addAll(GetNeighbors(maze, rows, columns, neighbor.getRowIndex(), neighbor.getColumnIndex()));
-                neighbors.remove(neighbor);
             }
-            // otherwise we remove it from the arraylist
-            else{
-                neighbors.remove(neighbor);
-            }
+            // anyway, we remove the cell from the arraylist
+            neighbors.remove(neighbor);
+
         }
         return maze;
     }

@@ -30,25 +30,23 @@ public class Maze {
     public int GetPosition(int i, int j){return this.maze[i][j];}
 
     public void print(){
-        System.out.print("int[][] maze = {\n");
         for (int i=0; i <= rows - 1; i++){
             if(i == this.start.getRowIndex() && 0 == this.start.getColumnIndex())
-                System.out.print("\t\t\t{" + "S");
+                System.out.print("{ " + "S" + " ");
             else if(i == this.goal.getRowIndex() && 0 == this.goal.getColumnIndex())
-                System.out.print("\t\t\t{" + "E");
+                System.out.print("{ " + "E" + " ");
             else
-                System.out.print("\t\t\t{" + this.maze[i][0]);
+                System.out.print("{ " + this.maze[i][0] + " ");
             for (int j=1; j <= columns - 1; j++){
                 if(i == this.start.getRowIndex() && j == this.start.getColumnIndex())
-                    System.out.print("," + "S");
+                    System.out.print("S ");
                 else if(i == this.goal.getRowIndex() && j == this.goal.getColumnIndex())
-                    System.out.print("," + "E");
+                    System.out.print("E ");
                 else
-                    System.out.print("," + this.maze[i][j]);
+                    System.out.print( this.maze[i][j] + " ");
             }
-            System.out.println("},");
+            System.out.println("}");
         }
-        System.out.println("\t};");
     }
 
     public void superprint(){
