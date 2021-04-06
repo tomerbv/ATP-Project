@@ -5,88 +5,69 @@ import algorithms.mazeGenerators.Position;
 import java.util.ArrayList;
 
 public class SearchableMaze implements ISearchable {
-    Node start;
-    Node goal;
+    Maze maze;
+
+    @Override
+    public AState getStartState(){
+        return new MazeState(maze.getStartPosition());
+
+    }
+    @Override
+    public AState getGoalState(){
+        return new MazeState(maze.getGoalPosition());
+    }
+
+    @Override
+    public ArrayList<AState> getAllSuccessors(AState s) {
+        ArrayList<AState> successors = new ArrayList<AState>();
+        int i = ((MazeState) s).position.getRowIndex();
+        int j = ((MazeState) s).position.getColumnIndex();
+        boolean up = false;
+        boolean down = false;
+        boolean right = false;
+        boolean left = false;
+
+        //Check up
+        if(i > 0 && maze.GetPosition(i - 1, j) == 0){
+            successors.add(new MazeState(new Position(i - 1, j), 10));
+            up = true;
+        }
+        //Check down
+        if(i < (maze.getRows() - 1) && maze.GetPosition(i + 1, j) == 0){
+            successors.add(new MazeState(new Position(i + 1, j), 10));
+            down = true;
+        }
+        //Check right
+        if(j < (maze.getColumns() - 1) && maze.GetPosition(i, j + 1) == 0){
+            successors.add(new MazeState(new Position(i, j+ 1), 10));
+            right = true;
+        }
+        //Check left
+        if(j > 0 && maze.GetPosition(i, j - 1) == 0){
+            successors.add(new MazeState(new Position(i, j - 1), 10));
+            left = true;
+        }
+        //Check diagonals
+        //Up Right
+        if( (i > 0 && j < (maze.getColumns() - 1)) && (up || right))
+            successors.add(new MazeState(new Position(i - 1, j + 1), 15));
+        //Up Left
+        if( (i > 0 && j > 0) && (up || left))
+            successors.add(new MazeState(new Position(i - 1, j - 1), 15));
+        //Down Left
+        if( (i < (maze.getRows() - 1) && j > 0) && (down || left))
+            successors.add(new MazeState(new Position(i - 1, j - 1), 15));
+        //Down Right
+        if( (i < (maze.getRows() - 1) && j < (maze.getColumns() - 1)) && (down || right))
+            successors.add(new MazeState(new Position(i - 1, j + 1), 15));
+
+        return successors;
+
+
+    }
 
     public SearchableMaze(Maze maze){
-        this.start = new Node(maze.getStartPosition().getRowIndex(),maze.getStartPosition().getColumnIndex());
-        this.goal = new Node(maze.getGoalPosition().getRowIndex(),maze.getGoalPosition().getColumnIndex());
-        this.start.NeighborsToNodes(maze);
-    }
-   // public getAllSuccessors
-
-
-
-    private class Node extends Position{
-        ArrayList<Node> neighbors;
-
-        public Node(int row, int columns){
-            super(row,columns);
-            this.neighbors = new ArrayList<Node>();
-        }
-
-        public void NeighborsToNodes(Maze maze){
-            int i = this.getRowIndex();
-            int j = this.getColumnIndex();
-
-            if (i == 0) {
-                //Upper right corner
-                if (j == 0) {
-                    neighbors.add(new Node(i + 1, j));
-                    neighbors.add(new Node(i, j + 1));
-                }
-                //Upper left corner
-                else if (j == (maze.getColumns() - 1)) {
-                    neighbors.add(new Node(i + 1, j));
-                    neighbors.add(new Node(i, j - 1);
-                }
-                //Upper wall
-                else {
-                    neighbors.add(new Position(i + 1, j));
-                    neighbors.add(new Position(i, j - 1));
-                    neighbors.add(new Position(i, j + 1));
-                }
-            }
-            else if (i == (rows - 1)) {
-                //Bottom left corner
-                if (j == 0) {
-                    neighbors.add(new Position(i - 1, j));
-                    neighbors.add(new Position(i, j + 1));
-                }
-                //Bottom right corner
-                else if (j == columns - 1) {
-                    neighbors.add(new Position(i - 1, j));
-                    neighbors.add(new Position(i, j - 1));
-                } else {
-                    //Bottom Wall
-                    neighbors.add(new Position(i - 1, j));
-                    neighbors.add(new Position(i, j - 1));
-                    neighbors.add(new Position(i, j + 1));
-                }
-            }
-            else {
-                //Left Wall
-                if (j == 0) {
-                    neighbors.add(new Position(i - 1, j));
-                    neighbors.add(new Position(i + 1, j));
-                    neighbors.add(new Position(i, j + 1));
-                }
-                //Right Wall
-                else if (j == columns - 1) {
-                    neighbors.add(new Position(i - 1, j));
-                    neighbors.add(new Position(i + 1, j));
-                    neighbors.add(new Position(i, j - 1));
-                }
-                //No walls around
-                else {
-                    neighbors.add(new Position(i - 1, j));
-                    neighbors.add(new Position(i + 1, j));
-                    neighbors.add(new Position(i, j + 1));
-                    neighbors.add(new Position(i, j - 1));
-                }
-            }
-            return neighbors;
-        }
-        }
+       this.maze = maze;
     }
 }
+
