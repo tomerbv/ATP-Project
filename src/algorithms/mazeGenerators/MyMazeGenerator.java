@@ -81,12 +81,12 @@ public class MyMazeGenerator extends AMazeGenerator{
         //checks where the position is located in relation to the grid and adds returns its neighbors accordingly.
         ArrayList<Position> neighbors = new ArrayList<Position>();
         if (i == 0) {
-            //Upper right corner
+            //Upper left corner
             if (j == 0) {
                 neighbors.add(new Position(i + 1, j));
                 neighbors.add(new Position(i, j + 1));
             }
-            //Upper left corner
+            //Upper right corner
             else if (j == columns - 1) {
                 neighbors.add(new Position(i + 1, j));
                 neighbors.add(new Position(i, j - 1));

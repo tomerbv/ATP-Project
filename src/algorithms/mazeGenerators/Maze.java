@@ -27,6 +27,10 @@ public class Maze {
         return this.goal;
     }
 
+    public int getRows(){ return this.rows; }
+
+    public int getColumns(){ return this.columns; }
+
     public int GetPosition(int i, int j){return this.maze[i][j];}
 
     public void print(){
@@ -50,25 +54,23 @@ public class Maze {
     }
 
     public void superprint(){
-        System.out.print("int[][] maze = {\n");
         for (int i=0; i <= rows - 1; i++){
             if(i == this.start.getRowIndex() && 0 == this.start.getColumnIndex())
-                System.out.print("\t\t\t{" + "S ");
+                System.out.print("{" + "S " + " ");
             else if(i == this.goal.getRowIndex() && 0 == this.goal.getColumnIndex())
-                System.out.print("\t\t\t{" + "E ");
+                System.out.print("{" + "E " + " ");
             else
-                System.out.print("\t\t\t{" + charprint(this.maze[i][0]));
+                System.out.print("{" + charprint(this.maze[i][0]) + " ");
             for (int j=1; j <= columns - 1; j++){
                 if(i == this.start.getRowIndex() && j == this.start.getColumnIndex())
                     System.out.print("S ");
                 else if(i == this.goal.getRowIndex() && j == this.goal.getColumnIndex())
                     System.out.print("E ");
                 else
-                    System.out.print(charprint(this.maze[i][j]));
+                    System.out.print(charprint(this.maze[i][j]) + " ");
             }
-            System.out.println("},");
+            System.out.println("}");
         }
-        System.out.println("\t};");
     }
 
     private String charprint(int i){
