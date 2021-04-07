@@ -1,17 +1,20 @@
 package algorithms.search;
 
-public class BreadthFirstSearch extends ASearchingAlgorithm{
+import java.util.PriorityQueue;
 
+public class BreadthFirstSearch extends ASearchingAlgorithm{
     public BreadthFirstSearch() {
+        super();
     }
+
     @Override
     public String getName() {
-        return "BFS";
+        return "BreadthFirstSearch";
     }
 
     @Override
     public Solution solve(ISearchable domain) {
-        return null;
+
     }
 
 }

@@ -2,6 +2,12 @@ package algorithms.search;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
     public DepthFirstSearch() {
+        super();
+    }
+
+    @Override
+    public String getName() {
+        return "DepthFirstSearch";
     }
 
     @Override
@@ -9,10 +15,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         return null;
     }
 
-    @Override
-    public String getName() {
-        return "DFS";
-    }
+
 
 
 
