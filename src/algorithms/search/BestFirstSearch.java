@@ -1,9 +1,10 @@
 package algorithms.search;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
-public class BestFirstSearch extends ASearchingAlgorithm{
+public class BestFirstSearch extends BreadthFirstSearch {
     public BestFirstSearch() {
         super();
     }
@@ -14,15 +15,14 @@ public class BestFirstSearch extends ASearchingAlgorithm{
     }
 
     @Override
-    public Solution solve(ISearchable domain) {
-        if(!(domain instanceof SearchableMaze))
-            return null;
-        PriorityQueue<AState> Open = new PriorityQueue<AState>();
-        HashSet<AState> Closed = new HashSet<AState>();
-        Open.add(domain.getStartState());
-
+    public void AddSuccessor(AState curr, AState Successor){
+        Successor.setCameFrom(curr);
+        Successor.addCost(curr.getCost());
     }
 
-
-
 }
+
+
+
+
+

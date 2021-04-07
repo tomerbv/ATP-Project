@@ -21,10 +21,9 @@ public class Position {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Position)) return false;
         Position position = (Position) o;
-        return row == position.row && column == position.column;
+        return (row == position.row && column == position.column);
     }
 
     @Override

@@ -1,15 +1,22 @@
 package algorithms.search;
 
-import java.util.Objects;
-
 public abstract class AState implements Comparable<AState>{
     double cost;
+    AState CameFrom;
 
     public AState(){
         this.cost = 0;
     }
     public AState(double cost){
         this.cost = cost;
+    }
+
+    public AState getCameFrom() {
+        return CameFrom;
+    }
+
+    public void setCameFrom(AState state) {
+        this.CameFrom = state;
     }
 
     public double getCost() {
@@ -35,13 +42,11 @@ public abstract class AState implements Comparable<AState>{
         return 1;
     }
 
-
-
     @Override
     public abstract boolean equals(Object o);
 
     @Override
     public abstract int hashCode();
 
-
+    public abstract String toString();
 }

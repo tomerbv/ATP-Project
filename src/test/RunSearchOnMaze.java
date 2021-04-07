@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(30, 30);
+        Maze maze = mg.generate(20, 20);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
-
+        maze.superprint();
         solveProblem(searchableMaze, new BreadthFirstSearch());
-        solveProblem(searchableMaze, new DepthFirstSearch());
+        //solveProblem(searchableMaze, new DepthFirstSearch());
         solveProblem(searchableMaze, new BestFirstSearch());
     }
 
@@ -28,4 +28,3 @@ public class RunSearchOnMaze {
         }
     }
 }
-*/
