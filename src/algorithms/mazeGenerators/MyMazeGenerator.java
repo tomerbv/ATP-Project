@@ -1,23 +1,20 @@
 package algorithms.mazeGenerators;
 import java.util.ArrayList;
 
+/**
+ * MyMazeGenerator class generates a maze using Randomized Prim algorithm.
+ */
 public class MyMazeGenerator extends AMazeGenerator{
 
+    /**
+     * @param rows    - Determines number of rows for the created maze
+     * @param columns - Determines number of columns for the created maze
+     * @return Maze - a generated maze with walls spread randomly using Randomized Prim algorithm.
+     */
     public Maze generate(int rows, int columns) {
-        //First the algorithm initiates the starting and goal positions to be at opposite sides to increase complexity
-        //and sets the entire grid to the value 1. Then using Randomized Prim's algorithm we set the start
-        //position to the value 0 and add its neighbors to an array. we choose a random neighbor and check whether it's suitable
-        //to be a path, if so we set its value to 0 and add its neighbors to the array, otherwise we remove it from
-        //the array.
-
         Position start = RandomWall(rows, columns);
         Position goal = new Position((rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());
-        Maze maze = new Maze(rows, columns, start, goal);
-        for (int i = 0; i <= rows - 1; i++) {
-            for (int j = 0; j <= columns - 1; j++) {
-                maze.set(i, j, 1);
-            }
-        }
+        Maze maze = FillMaze(rows,columns, start,goal, 1);
         maze.set(start.getRowIndex(), start.getColumnIndex(), 0);
         ArrayList<Position> neighbors = GetNeighbors(maze, rows, columns, start.getRowIndex(), start.getColumnIndex());
         while (!neighbors.isEmpty()) {
@@ -28,14 +25,17 @@ public class MyMazeGenerator extends AMazeGenerator{
                 maze.set(neighbor.getRowIndex(), neighbor.getColumnIndex(), 0);
             }
             // then if that neighbor can be a path we set him to the value 0 and add his neighbors to the arraylist
-            else if(maze.GetPosition(neighbor.getRowIndex(),neighbor.getColumnIndex()) != 0 && CanBePath(neighbor, maze, rows, columns)){
+            else if(maze.GetPositionVal(neighbor.getRowIndex(),neighbor.getColumnIndex()) != 0 && CanBePath(neighbor, maze, rows, columns)){
                 maze.set(neighbor.getRowIndex(),neighbor.getColumnIndex(),0);
                 neighbors.addAll(GetNeighbors(maze, rows, columns, neighbor.getRowIndex(), neighbor.getColumnIndex()));
             }
             // anyway, we remove the cell from the arraylist
             neighbors.remove(neighbor);
-
+            if (neighbors.isEmpty() && maze.GetPositionVal(goal.getRowIndex(),goal.getColumnIndex()) != 0 ) {
+                neighbors = GetNeighbors(maze, rows, columns, goal.getRowIndex(), goal.getColumnIndex());
+            }
         }
+
         return maze;
     }
 
@@ -65,7 +65,7 @@ public class MyMazeGenerator extends AMazeGenerator{
         ArrayList<Position> neighbors = GetNeighbors( maze ,  rows,  columns, pos.getRowIndex() ,pos.getColumnIndex());
         int counter = 0;
         for (Position neighbor: neighbors) {
-            if (maze.GetPosition(neighbor.getRowIndex(),neighbor.getColumnIndex()) == 0)
+            if (maze.GetPositionVal(neighbor.getRowIndex(),neighbor.getColumnIndex()) == 0)
                 counter ++;
         }
         if (counter > 1)

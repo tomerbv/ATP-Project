@@ -1,10 +1,6 @@
 package algorithms.search;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-
-public class BestFirstSearch extends BreadthFirstSearch {
+public class BestFirstSearch extends BreadthFirstSearch{
     public BestFirstSearch() {
         super();
     }
@@ -15,11 +11,10 @@ public class BestFirstSearch extends BreadthFirstSearch {
     }
 
     @Override
-    public void AddSuccessor(AState curr, AState Successor){
+    protected void AddSuccessor(AState curr, AState Successor){
         Successor.setCameFrom(curr);
         Successor.addCost(curr.getCost());
     }
-
 }
 
 

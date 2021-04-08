@@ -34,37 +34,37 @@ public class SearchableMaze implements ISearchable {
         boolean left = false;
 
         //Check up
-        if(i > 0 && maze.GetPosition(i - 1, j) == 0){
+        if(i > 0 && maze.GetPositionVal(i - 1, j) == 0){
             successors.add(new MazeState(new Position(i - 1, j), 10));
             up = true;
         }
         //Check down
-        if(i < (maze.getRows() - 1) && maze.GetPosition(i + 1, j) == 0){
+        if(i < (maze.getRows() - 1) && maze.GetPositionVal(i + 1, j) == 0){
             successors.add(new MazeState(new Position(i + 1, j), 10));
             down = true;
         }
         //Check right
-        if(j < (maze.getColumns() - 1) && maze.GetPosition(i, j + 1) == 0){
+        if(j < (maze.getColumns() - 1) && maze.GetPositionVal(i, j + 1) == 0){
             successors.add(new MazeState(new Position(i, j+ 1), 10));
             right = true;
         }
         //Check left
-        if(j > 0 && maze.GetPosition(i, j - 1) == 0){
+        if(j > 0 && maze.GetPositionVal(i, j - 1) == 0){
             successors.add(new MazeState(new Position(i, j - 1), 10));
             left = true;
         }
         //Check diagonals
         //Up Right
-        if( (i > 0 && j < (maze.getColumns() - 1)) && (up || right) && maze.GetPosition(i - 1, j + 1) == 0)
+        if( (i > 0 && j < (maze.getColumns() - 1)) && (up || right) && maze.GetPositionVal(i - 1, j + 1) == 0)
             successors.add(new MazeState(new Position(i - 1, j + 1), 15));
         //Up Left
-        if( (i > 0 && j > 0) && (up || left) && maze.GetPosition(i - 1, j - 1) == 0)
+        if( (i > 0 && j > 0) && (up || left) && maze.GetPositionVal(i - 1, j - 1) == 0)
             successors.add(new MazeState(new Position(i - 1, j - 1), 15));
         //Down Left
-        if( (i < (maze.getRows() - 1) && j > 0) && (down || left) && maze.GetPosition(i + 1, j - 1) == 0)
+        if( (i < (maze.getRows() - 1) && j > 0) && (down || left) && maze.GetPositionVal(i + 1, j - 1) == 0)
             successors.add(new MazeState(new Position(i + 1, j - 1), 15));
         //Down Right
-        if( (i < (maze.getRows() - 1) && j < (maze.getColumns() - 1)) && (down || right) && maze.GetPosition(i + 1, j + 1) == 0)
+        if( (i < (maze.getRows() - 1) && j < (maze.getColumns() - 1)) && (down || right) && maze.GetPositionVal(i + 1, j + 1) == 0)
             successors.add(new MazeState(new Position(i + 1, j + 1), 15));
 
         return successors;
@@ -73,7 +73,9 @@ public class SearchableMaze implements ISearchable {
     }
 
     public SearchableMaze(Maze maze){
-       this.maze = maze;
+        if(!(maze instanceof Maze))
+            return;
+        this.maze = maze;
     }
 }
 

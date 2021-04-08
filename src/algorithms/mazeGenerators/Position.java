@@ -2,23 +2,44 @@ package algorithms.mazeGenerators;
 
 import java.util.Objects;
 
+/** Position class represents a cell in the grid of the maze,
+ *  Holds 2 data members int row and int column for a specific cell.
+ */
 public class Position {
     int row;
     int column;
 
+    /** Constructor
+     * @param row the point's row index.
+     * @param column the point's column index
+     */
     public Position(int row, int column) {
         this.row = row;
         this.column = column;
     }
 
+    /** Row index getter
+     * @return int row index
+     */
     public int getRowIndex(){return this.row;}
+
+    /** Column index getter
+     * @return int column index
+     */
     public int getColumnIndex(){return this.column;}
 
+    /** Basic toString method representing a position with 2 coordinates.
+     * @return String {row,column}
+     */
     @Override
     public String toString() {
         return "{" + row + ',' + column +"}";
     }
 
+    /** Basic equals method to determine two positions are the same.
+     * @param o object to compare equality to
+     * @return boolean true if equal false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Position)) return false;
@@ -26,6 +47,9 @@ public class Position {
         return (row == position.row && column == position.column);
     }
 
+    /** Basic hashcode method to distinguish a position
+     * @return int hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(row, column);

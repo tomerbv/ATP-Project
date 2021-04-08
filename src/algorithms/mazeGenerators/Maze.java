@@ -1,47 +1,77 @@
 package algorithms.mazeGenerators;
 
+/**
+ * Maze class holds 3 data members: the grid of integers and two Position types - starting and goal points.
+ */
 public class Maze {
-    int rows;
-    int columns;
     Position start;
     Position goal;
     int[][] maze;
 
+    /** Constructor
+     * @param rows - Determines number of rows for the created maze.
+     * @param columns - Determines number of columns for the created maze.
+     * @param start - Determines the starting position of the maze.
+     * @param goal - Determines the goal position of the maze.
+     */
     public Maze(int rows, int columns, Position start ,Position goal) {
         this.start = start;
         this.goal = goal;
-        this.rows = rows;
-        this.columns = columns;
         this.maze = new int[rows][columns];
     }
 
+    /** Grid setter by index.
+     * @param row - The specified cell's row.
+     * @param column - The specified cell's column.
+     * @param val - The value to set to that cell.
+     */
     public void set(int row, int column, int val){
         this.maze[row][column] = val;
     }
 
+    /** Start Position getter.
+     * @return Position start.
+     */
     public Position getStartPosition(){
         return this.start;
     }
 
+    /** Goal Position getter.
+     * @return Position goal.
+     */
     public Position getGoalPosition(){
         return this.goal;
     }
 
-    public int getRows(){ return this.rows; }
+    /** Row num getter.
+     * @return int row.
+     */
+    public int getRows(){ return this.maze.length; }
 
-    public int getColumns(){ return this.columns; }
+    /** Column num getter.
+     * @return int column.
+     */
+    public int getColumns(){ return this.maze[0].length; }
 
-    public int GetPosition(int i, int j){return this.maze[i][j];}
+    /** Grid getter by index.
+     * @param i - The specified cell's row.
+     * @param j - The specified cell's column.
+     * @return int value of that cell.
+     */
+    public int GetPositionVal(int i, int j){return this.maze[i][j];}
 
+    /**
+     * Basic printer for a basic representation of the maze represented by 1's and 0's.
+     */
     public void print(){
-        for (int i=0; i <= rows - 1; i++){
+        for (int i=0; i <= getRows() - 1; i++){
             if(i == this.start.getRowIndex() && 0 == this.start.getColumnIndex())
                 System.out.print("{ " + "S" + " ");
             else if(i == this.goal.getRowIndex() && 0 == this.goal.getColumnIndex())
                 System.out.print("{ " + "E" + " ");
             else
                 System.out.print("{ " + this.maze[i][0] + " ");
-            for (int j=1; j <= columns - 1; j++){
+            for (int j=1; j <= getColumns() - 1; j++){
                 if(i == this.start.getRowIndex() && j == this.start.getColumnIndex())
                     System.out.print("S ");
                 else if(i == this.goal.getRowIndex() && j == this.goal.getColumnIndex())
@@ -53,19 +83,23 @@ public class Maze {
         }
     }
 
+
+    /**
+     * Customized print for a better visual grasp of the maze.
+     */
     public void superprint(){
-        for (int i=0; i <= rows - 1; i++){
+        for (int i=0; i <= getRows() - 1; i++){
             if(i == this.start.getRowIndex() && 0 == this.start.getColumnIndex())
-                System.out.print("{" + "S " + " ");
+                System.out.print("{" + " S ");
             else if(i == this.goal.getRowIndex() && 0 == this.goal.getColumnIndex())
-                System.out.print("{" + "E " + " ");
+                System.out.print("{" + " E " );
             else
                 System.out.print("{" + charprint(this.maze[i][0]) + " ");
-            for (int j=1; j <= columns - 1; j++){
+            for (int j=1; j <= getColumns() - 1; j++){
                 if(i == this.start.getRowIndex() && j == this.start.getColumnIndex())
-                    System.out.print("S ");
+                    System.out.print(" S ");
                 else if(i == this.goal.getRowIndex() && j == this.goal.getColumnIndex())
-                    System.out.print("E ");
+                    System.out.print(" E ");
                 else
                     System.out.print(charprint(this.maze[i][j]) + " ");
             }
@@ -73,6 +107,10 @@ public class Maze {
         }
     }
 
+    /** Private utility method for superprint method.
+     * @param i 0 or 1 indicating a wall or a path.
+     * @return String consisting of 2 chars' representing a wall or a path.
+     */
     private String charprint(int i){
         if(i == 1)
             return ("██");

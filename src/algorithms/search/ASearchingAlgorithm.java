@@ -1,7 +1,11 @@
 package algorithms.search;
 
+import java.util.Collections;
+
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
     int NodesEvaluated;
+
+
 
     public abstract Solution solve(ISearchable domain);
     public abstract String getName();

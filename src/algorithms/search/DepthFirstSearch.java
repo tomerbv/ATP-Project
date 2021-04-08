@@ -16,16 +16,16 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
     @Override
     public Solution solve(ISearchable domain) {
-        if (!(domain instanceof ISearchable))
+        if (domain == null)
             return null;
         Stack<AState> Open = new Stack<AState>();
         HashSet<AState> Closed = new HashSet<AState>();
         ArrayList<AState> Successors = new ArrayList<AState>();
-
         Open.push(domain.getStartState());
         AState currNode;
         while (!Open.isEmpty()) {
             currNode = Open.pop();
+            this.NodesEvaluated ++;
             if (currNode.equals(domain.getGoalState()))
                 return new Solution(currNode);
             Successors = domain.getAllSuccessors(currNode);
@@ -37,7 +37,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                         successor.setCost(currNode.getCost() + 1);
                         Open.push(currNode);
                         Open.push(successor);
-                        this.NodesEvaluated ++;
                         currNode = successor;
                         Successors = domain.getAllSuccessors(currNode);
                         i = 0;
