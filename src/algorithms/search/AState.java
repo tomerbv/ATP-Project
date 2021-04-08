@@ -1,9 +1,20 @@
 package algorithms.search;
 
+/**Astate is abstract class that represents the situation
+ *  the searching algorithm is currently in
+ * field1: cost - the cost to reach the certain state
+ * field2: camefrom- the state that the certain state came from
+ */
 public abstract class AState implements Comparable<AState>{
+
     double cost;
     AState CameFrom;
 
+    /**constructor:
+     * one default constructor that initiates cost to 0
+     * second constructor that recieves a cost to start with
+     *
+     */
     public AState(){
         this.cost = 0;
     }
@@ -31,6 +42,12 @@ public abstract class AState implements Comparable<AState>{
         this.cost += cost;
     }
 
+    /**
+     * @param other  the other state that we compare to find the cheaper step
+     *
+     * @return returns 1 if this state is more expensive 0 if they have the
+     * same cost and -1 if other has a more expensive cost
+     */
     @Override
     public int compareTo(AState other) {
         if (this.cost < other.cost) {
@@ -50,3 +67,4 @@ public abstract class AState implements Comparable<AState>{
 
     public abstract String toString();
 }
+
