@@ -4,9 +4,17 @@ import algorithms.mazeGenerators.Position;
 
 import java.util.Objects;
 
+/**
+ * a class that represents a state in a Maze
+ */
 public class MazeState extends AState{
     Position position;
 
+    /**
+     * @param position represents the position in the maze we are in
+     * default constructor that initiates cost to 0
+     * other constructor that recieves a cost and initiates it to the mazestate field
+     */
     public MazeState(Position position){
         super();
         this.position = position;
@@ -19,6 +27,10 @@ public class MazeState extends AState{
         return this.position;
     }
 
+    /**
+     * @param o other object to compare to
+     * @return true if o is equal to the current mazestate
+     */
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof MazeState)) return false;

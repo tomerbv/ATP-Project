@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
 
+/**
+ * represents the DFS algorithm
+ */
 public class DepthFirstSearch extends ASearchingAlgorithm {
     public DepthFirstSearch() {
         super();
@@ -14,6 +17,18 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         return "DepthFirstSearch";
     }
 
+    /**
+     * @param domain the domain we are using the algorithm on.
+     * open - a stack data structure that holds the states evalueted from the first one(at the bottom of the stack) to the top
+     *        (the goal).
+     * close - a set of all the states we have reached in the algorithm, used for not double checking states we
+     *         have already reached.
+     * successors - an arraylist that holds the successors of each state for evaluation and insertion into open
+     * the algoritihm starts at the goal start state and pushes it into the stack,then pop is it and for every successor it has it
+     * checks if it is in open and closed(so we dont make the same step twice). then the current state we are in is pushed and then
+     * the succesor, then the successor becomes the current state and the cycle continues until we reach the goal state
+     * @return an object of type solution with the goal state
+     */
     @Override
     public Solution solve(ISearchable domain) {
         if (!(domain instanceof ISearchable))
