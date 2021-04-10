@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+import java.util.Set;
+
 /**
  *Abstract class for maze generators implements IMazeGenerator.
  */
@@ -24,7 +26,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @param fill the int the defaultive maze will be constructed with.
      * @return Maze - a filled maze
      */
-    protected Maze FillMaze(int rows,int columns, Position start, Position goal, int fill){
+    protected Maze FillMaze(int rows, int columns, Position start, Position goal, int fill){
         Maze maze = new Maze(rows,columns, start,goal);
         for (int i=0; i <= rows - 1; i++){
             for (int j=0; j <= columns - 1; j++){

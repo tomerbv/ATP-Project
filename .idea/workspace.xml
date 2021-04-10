@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7d4fc87e-c8e4-44ab-b1ea-59b26596ef31" name="Default Changelist" comment="post Search Beta 1.1">
-      <change beforePath="$PROJECT_DIR$/src/algorithms/search/BestFirstSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/search/BestFirstSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/search/BreadthFirstSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/search/BreadthFirstSearch.java" afterDir="false" />
+    <list default="true" id="7d4fc87e-c8e4-44ab-b1ea-59b26596ef31" name="Default Changelist" comment="post Search Beta 1.2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/mazeGenerators/AMazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/mazeGenerators/AMazeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/mazeGenerators/MyMazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/mazeGenerators/MyMazeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/RunSearchOnMaze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/RunSearchOnMaze.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +126,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.RunSearchOnMaze" />
@@ -212,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617892892257</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="post Search Beta 1.2">
+      <created>1617893695066</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1617893695066</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,23 +271,10 @@
     <MESSAGE value="post BFS" />
     <MESSAGE value="post Search Beta" />
     <MESSAGE value="post Search Beta 1.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="post Search Beta 1.1" />
+    <MESSAGE value="post Search Beta 1.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="post Search Beta 1.2" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/algorithms/mazeGenerators/MyMazeGenerator.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/algorithms/mazeGenerators/MyMazeGenerator.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="Open" />
