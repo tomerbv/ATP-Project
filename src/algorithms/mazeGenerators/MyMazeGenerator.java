@@ -13,6 +13,8 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @return Maze - a generated maze with walls spread randomly using Randomized Prim algorithm.
      */
     public Maze generate(int rows, int columns) {
+        if(rows < 3 || columns < 3 )
+            return null;
         Position start = RandomWall(rows, columns);
         Position goal = new Position((rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());
         HashSet<Position> Unvisitied = new HashSet<Position>(); //
@@ -29,8 +31,8 @@ public class MyMazeGenerator extends AMazeGenerator{
         Unvisitied.remove(start);
         ArrayList<Position> neighbors = GetNeighbors(maze, rows, columns, start.getRowIndex(), start.getColumnIndex());
         while (!neighbors.isEmpty()) {
-            Position neighbor = GetRanNeighbor(neighbors);// choosing a random neighbor
-
+            Position neighbor = GetRanNeighbor(neighbors);
+            Unvisitied.remove(neighbor);
             /** first we check if a the cell is the goal so the path will exist without doubt */
             if(neighbor.getRowIndex() == goal.getRowIndex() && neighbor.getColumnIndex() == goal.getColumnIndex()) {
                 maze.set(neighbor.getRowIndex(), neighbor.getColumnIndex(), 0);
@@ -62,8 +64,6 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @return Position - a random Position on one of the mazes walls
      */
     private Position RandomWall(int rows, int columns){
-        // random choice of walls to create the starting and goal positions
-        // by randomly fixing i or j to the borders and choosing the other randomly
         int i,j;
         if(Math.random() > 0.5){
             i = (int) (Math.random() * (rows - 1));
@@ -93,7 +93,6 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @return boolean True if a path can be created or False otherwise.
      */
     private boolean CanBePath(Position pos, Maze maze , int rows, int columns, int connect){
-        // checks whether a certain wall can be a path by checking how many of its neighbors are paths themselves.
         ArrayList<Position> neighbors = GetNeighbors( maze ,  rows,  columns, pos.getRowIndex() ,pos.getColumnIndex());
         int counter = 0;
         for (Position neighbor: neighbors) {
@@ -122,63 +121,28 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @return ArrayList of Positions that are neighbors of the Position in question.
      */
     private ArrayList<Position> GetNeighbors(Maze maze , int rows, int columns, int i, int j) {
-        //checks where the position is located in relation to the grid and adds returns its neighbors accordingly.
         ArrayList<Position> neighbors = new ArrayList<Position>();
+        /** Rows dimension neighbors.*/
         if (i == 0) {
-            //Upper left corner
-            if (j == 0) {
-                neighbors.add(new Position(i + 1, j));
-                neighbors.add(new Position(i, j + 1));
-            }
-            //Upper right corner
-            else if (j == columns - 1) {
-                neighbors.add(new Position(i + 1, j));
-                neighbors.add(new Position(i, j - 1));
-            }
-            //Upper wall
-            else {
-                neighbors.add(new Position(i + 1, j));
-                neighbors.add(new Position(i, j - 1));
-                neighbors.add(new Position(i, j + 1));
-            }
+            neighbors.add(new Position(i + 1, j));
         }
         else if (i == (rows - 1)) {
-            //Bottom left corner
-            if (j == 0) {
-                neighbors.add(new Position(i - 1, j));
-                neighbors.add(new Position(i, j + 1));
-            }
-            //Bottom right corner
-            else if (j == columns - 1) {
-                neighbors.add(new Position(i - 1, j));
-                neighbors.add(new Position(i, j - 1));
-            } else {
-                //Bottom Wall
-                neighbors.add(new Position(i - 1, j));
-                neighbors.add(new Position(i, j - 1));
-                neighbors.add(new Position(i, j + 1));
-            }
+            neighbors.add(new Position(i - 1, j));
         }
         else {
-            //Left Wall
-            if (j == 0) {
-                neighbors.add(new Position(i - 1, j));
-                neighbors.add(new Position(i + 1, j));
-                neighbors.add(new Position(i, j + 1));
-            }
-            //Right Wall
-            else if (j == columns - 1) {
-                neighbors.add(new Position(i - 1, j));
-                neighbors.add(new Position(i + 1, j));
-                neighbors.add(new Position(i, j - 1));
-            }
-            //No walls around
-            else {
-                neighbors.add(new Position(i - 1, j));
-                neighbors.add(new Position(i + 1, j));
-                neighbors.add(new Position(i, j + 1));
-                neighbors.add(new Position(i, j - 1));
-            }
+            neighbors.add(new Position(i + 1, j));
+            neighbors.add(new Position(i - 1, j));
+        }
+        /** Rolumns dimension neighbors.*/
+        if (j == 0) {
+            neighbors.add(new Position(i, j+1));
+        }
+        else if (j == (columns - 1)) {
+            neighbors.add(new Position(i, j-1));
+        }
+        else {
+            neighbors.add(new Position(i, j+1));
+            neighbors.add(new Position(i, j-1));
         }
         return neighbors;
     }

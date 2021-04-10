@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7d4fc87e-c8e4-44ab-b1ea-59b26596ef31" name="Default Changelist" comment="post Search Beta 1.2">
+    <list default="true" id="7d4fc87e-c8e4-44ab-b1ea-59b26596ef31" name="Default Changelist" comment="pre 3D">
+      <change afterPath="$PROJECT_DIR$/src/algorithms/maze3D/AMaze3DGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/algorithms/maze3D/IMaze3DGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/algorithms/maze3D/Maze3D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/algorithms/maze3D/Maze3DState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/algorithms/maze3D/MyMaze3DGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/algorithms/maze3D/Position3D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/algorithms/maze3D/SearchableMaze3D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/GeneralCheckingFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/RunMaze3DGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/mazeGenerators/AMazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/mazeGenerators/AMazeGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/algorithms/mazeGenerators/MyMazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/mazeGenerators/MyMazeGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/RunSearchOnMaze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/RunSearchOnMaze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/RunMazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/RunMazeGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,12 +111,25 @@
       <recent name="C:\Users\tomer\OneDrive\Desktop\Advanced Topics in Programming\HW\hw1" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RunSearchOnMaze">
+  <component name="RunManager" selected="Application.RunMaze3DGenerator">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="test.RunMazeGenerator" />
       <module name="ATP-Project-PartA" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunMaze3DGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.RunMaze3DGenerator" />
+      <module name="ATP-Project-PartA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -139,8 +160,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RunSearchOnMaze" />
+        <item itemvalue="Application.RunMaze3DGenerator" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.RunSearchOnMaze" />
       </list>
     </recent_temporary>
   </component>
@@ -232,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617893695066</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="pre 3D">
+      <created>1618059464316</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1618059464316</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +301,8 @@
     <MESSAGE value="post Search Beta" />
     <MESSAGE value="post Search Beta 1.1" />
     <MESSAGE value="post Search Beta 1.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="post Search Beta 1.2" />
+    <MESSAGE value="pre 3D" />
+    <option name="LAST_COMMIT_MESSAGE" value="pre 3D" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
