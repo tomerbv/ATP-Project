@@ -2,8 +2,6 @@ package algorithms.search;
 
 import algorithms.mazeGenerators.Position;
 
-import java.util.Objects;
-
 /**
  * a class that represents a state in a Maze
  */

@@ -12,10 +12,10 @@ public class Maze3D {
      * @param start - Determines the starting position of the maze.
      * @param goal - Determines the goal position of the maze.
      */
-    public Maze3D(int depth, int rows, int columns, Position3D start ,Position3D goal) {
+    public Maze3D( Position3D start ,Position3D goal, int[][][] map3D) {
         this.startPosition = start;
         this.goalPosition = goal;
-        this.map = new int[depth][rows][columns];
+        this.map = map3D;
     }
 
     /** Grid setter by index.

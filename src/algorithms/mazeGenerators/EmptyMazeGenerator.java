@@ -10,6 +10,8 @@ public class EmptyMazeGenerator extends AMazeGenerator  {
      * @return Maze - The maze generated
      */
     public Maze generate(int rows, int columns){
+        if(rows < 2 || columns < 2 )
+            return null;
         Position start = new Position(0,0);
         Position goal = new Position(rows - 1,columns - 1);
         Maze maze = FillMaze(rows,columns, start,goal, 0);

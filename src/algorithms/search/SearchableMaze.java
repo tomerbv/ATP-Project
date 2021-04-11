@@ -34,8 +34,8 @@ public class SearchableMaze implements ISearchable {
         @return ArrayList<AState> - all the states possible to advance to from that certain state.
         */
         ArrayList<AState> successors = new ArrayList<AState>();
-        int i = ((MazeState) s).position.getRowIndex();
-        int j = ((MazeState) s).position.getColumnIndex();
+        int i = ((MazeState) s).getPosition().getRowIndex();
+        int j = ((MazeState) s).getPosition().getColumnIndex();
         boolean up = false;
         boolean down = false;
         boolean right = false;

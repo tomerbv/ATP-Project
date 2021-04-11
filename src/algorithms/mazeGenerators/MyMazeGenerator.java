@@ -13,26 +13,27 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @return Maze - a generated maze with walls spread randomly using Randomized Prim algorithm.
      */
     public Maze generate(int rows, int columns) {
-        if(rows < 3 || columns < 3 )
+        if(rows < 2 || columns < 2 )
             return null;
         Position start = RandomWall(rows, columns);
         Position goal = new Position((rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());
-        HashSet<Position> Unvisitied = new HashSet<Position>(); //
-        Maze maze = new Maze(rows,columns, start,goal);
-        /** implemented again in this class because of the addition of Unvisited. */
+        HashSet<Position> Unvisited = new HashSet<Position>();
+        int[][] map = new int[rows][columns];
+        Maze maze = new Maze(start,goal,map);
         for (int i=0; i <= rows - 1; i++){
             for (int j=0; j <= columns - 1; j++){
                 maze.set(i,j,1);
-                Unvisitied.add(new Position(i,j));
+                Unvisited.add(new Position(i,j));
             }
         }
-        int connect = 0;
+        int randindex, connect = 0;
         maze.set(start.getRowIndex(), start.getColumnIndex(), 0);
-        Unvisitied.remove(start);
+        Unvisited.remove(start);
         ArrayList<Position> neighbors = GetNeighbors(maze, rows, columns, start.getRowIndex(), start.getColumnIndex());
         while (!neighbors.isEmpty()) {
-            Position neighbor = GetRanNeighbor(neighbors);
-            Unvisitied.remove(neighbor);
+            randindex = (int) (Math.random() * (neighbors.size() - 1));
+            Position neighbor = neighbors.get(randindex);
+            Unvisited.remove(neighbor);
             /** first we check if a the cell is the goal so the path will exist without doubt */
             if(neighbor.getRowIndex() == goal.getRowIndex() && neighbor.getColumnIndex() == goal.getColumnIndex()) {
                 maze.set(neighbor.getRowIndex(), neighbor.getColumnIndex(), 0);
@@ -43,11 +44,11 @@ public class MyMazeGenerator extends AMazeGenerator{
                 neighbors.addAll(GetNeighbors(maze, rows, columns, neighbor.getRowIndex(), neighbor.getColumnIndex()));
             }
              /** anyway, we remove the cell from the arraylist */
-            neighbors.remove(neighbor);
+            neighbors.remove(randindex);
 
-            if(neighbors.isEmpty() && !(Unvisitied.isEmpty())){
-                neighbor = Unvisitied.iterator().next();
-                Unvisitied.remove(neighbor);
+            if(neighbors.isEmpty() && !(Unvisited.isEmpty())){
+                neighbor = Unvisited.iterator().next();
+                Unvisited.remove(neighbor);
                 neighbors.add(neighbor);
                 /** if the gaol position hasent been reached we make sure the maze is solvable
                  * by tearing walls that have more than one path neghbor.*/
@@ -104,14 +105,6 @@ public class MyMazeGenerator extends AMazeGenerator{
         return true;
     }
 
-    /** Utility method to choose a random neighbor from the neighbors ArrayList.
-     * @param neighbors Neighbors ArrayList.
-     * @return A random Position
-     */
-    private Position GetRanNeighbor(ArrayList<Position> neighbors) {
-        return neighbors.get((int) (Math.random() * (neighbors.size() - 1))); // choosing a random neighbor
-    }
-
     /** Utility method to get the neighbors of a certain cell' while making sure they are within the boundaries of the maze
      * @param maze The current maze
      * @param rows Mazes rows dimension
@@ -123,23 +116,19 @@ public class MyMazeGenerator extends AMazeGenerator{
     private ArrayList<Position> GetNeighbors(Maze maze , int rows, int columns, int i, int j) {
         ArrayList<Position> neighbors = new ArrayList<Position>();
         /** Rows dimension neighbors.*/
-        if (i == 0) {
+        if (i == 0)
             neighbors.add(new Position(i + 1, j));
-        }
-        else if (i == (rows - 1)) {
+        else if (i == (rows - 1))
             neighbors.add(new Position(i - 1, j));
-        }
         else {
             neighbors.add(new Position(i + 1, j));
             neighbors.add(new Position(i - 1, j));
         }
         /** Rolumns dimension neighbors.*/
-        if (j == 0) {
+        if (j == 0)
             neighbors.add(new Position(i, j+1));
-        }
-        else if (j == (columns - 1)) {
+        else if (j == (columns - 1))
             neighbors.add(new Position(i, j-1));
-        }
         else {
             neighbors.add(new Position(i, j+1));
             neighbors.add(new Position(i, j-1));

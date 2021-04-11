@@ -40,14 +40,16 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         AState currNode;
         while (!Open.isEmpty()) {
             currNode = Open.pop();
-            this.NodesEvaluated ++;
-            if (currNode.equals(domain.getGoalState()))
-                return new Solution(currNode);
             Successors = domain.getAllSuccessors(currNode);
             for (int i = 0; i < Successors.size(); i++){
+                if (currNode.equals(domain.getGoalState())) {
+                    this.NodesEvaluated++;
+                    return new Solution(currNode);
+                }
                 AState successor = Successors.get(i);
                 if (!Closed.contains(successor)) {
                     if (!Open.contains(successor)) {
+                        this.NodesEvaluated ++;
                         successor.setCameFrom(currNode);
                         successor.setCost(currNode.getCost() + 1);
                         Open.push(currNode);

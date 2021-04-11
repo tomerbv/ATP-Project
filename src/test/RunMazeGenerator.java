@@ -12,7 +12,7 @@ public class RunMazeGenerator {
 // generate another maze
         Maze maze = mazeGenerator.generate(10/*rows*/, 10/*columns*/);
 // prints the maze
-        maze.superprint();
+        maze.print();
 // get the maze entrance
         Position startPosition = maze.getStartPosition();
 // print the start position

@@ -6,7 +6,7 @@ package algorithms.mazeGenerators;
 public class Maze {
     Position start;
     Position goal;
-    int[][] maze;
+    int[][] map;
 
     /** Constructor
      * @param rows - Determines number of rows for the created maze.
@@ -14,10 +14,10 @@ public class Maze {
      * @param start - Determines the starting position of the maze.
      * @param goal - Determines the goal position of the maze.
      */
-    public Maze(int rows, int columns, Position start ,Position goal) {
+    public Maze(Position start ,Position goal, int[][] map) {
         this.start = start;
         this.goal = goal;
-        this.maze = new int[rows][columns];
+        this.map = map;
     }
 
     /** Grid setter by index.
@@ -26,7 +26,7 @@ public class Maze {
      * @param val - The value to set to that cell.
      */
     public void set(int row, int column, int val){
-        this.maze[row][column] = val;
+        this.map[row][column] = val;
     }
 
     /** Start Position getter.
@@ -46,19 +46,19 @@ public class Maze {
     /** Row num getter.
      * @return int row.
      */
-    public int getRows(){ return this.maze.length; }
+    public int getRows(){ return this.map.length; }
 
     /** Column num getter.
      * @return int column.
      */
-    public int getColumns(){ return this.maze[0].length; }
+    public int getColumns(){ return this.map[0].length; }
 
     /** Grid getter by index.
      * @param i - The specified cell's row.
      * @param j - The specified cell's column.
      * @return int value of that cell.
      */
-    public int GetPositionVal(int i, int j){return this.maze[i][j];}
+    public int GetPositionVal(int i, int j){return this.map[i][j];}
 
     /**
      * Basic printer for a basic representation of the maze represented by 1's and 0's.
@@ -70,14 +70,14 @@ public class Maze {
             else if(i == this.goal.getRowIndex() && 0 == this.goal.getColumnIndex())
                 System.out.print("{ " + "E" + " ");
             else
-                System.out.print("{ " + this.maze[i][0] + " ");
+                System.out.print("{ " + this.map[i][0] + " ");
             for (int j=1; j <= getColumns() - 1; j++){
                 if(i == this.start.getRowIndex() && j == this.start.getColumnIndex())
                     System.out.print("S ");
                 else if(i == this.goal.getRowIndex() && j == this.goal.getColumnIndex())
                     System.out.print("E ");
                 else
-                    System.out.print( this.maze[i][j] + " ");
+                    System.out.print( this.map[i][j] + " ");
             }
             System.out.println("}");
         }
@@ -94,14 +94,14 @@ public class Maze {
             else if(i == this.goal.getRowIndex() && 0 == this.goal.getColumnIndex())
                 System.out.print("{" + " E " );
             else
-                System.out.print("{" + charprint(this.maze[i][0]) + " ");
+                System.out.print("{" + charprint(this.map[i][0]) + " ");
             for (int j=1; j <= getColumns() - 1; j++){
                 if(i == this.start.getRowIndex() && j == this.start.getColumnIndex())
                     System.out.print(" S ");
                 else if(i == this.goal.getRowIndex() && j == this.goal.getColumnIndex())
                     System.out.print(" E ");
                 else
-                    System.out.print(charprint(this.maze[i][j]) + " ");
+                    System.out.print(charprint(this.map[i][j]) + " ");
             }
             System.out.println("}");
         }
