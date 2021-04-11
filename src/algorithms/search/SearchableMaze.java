@@ -12,12 +12,16 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public AState getStartState(){
+        if(this.maze==null)
+            return null;
         //@return AState - the state which is the start position of the maze.
         return new MazeState(maze.getStartPosition());
 
     }
     @Override
     public AState getGoalState(){
+        if(this.maze==null)
+            return null;
         //@return AState - the state which is the goal position of the maze.
         return new MazeState(maze.getGoalPosition());
     }
@@ -29,11 +33,14 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public ArrayList<AState> getAllSuccessors(AState s) {
+        ArrayList<AState> successors = new ArrayList<AState>();
+        if(this.maze == null)
+            return successors;
         /* Get all Successors (possible Positions to advance to in the maze) from a certain state
         @param AState - a certain state the searching algorithm moves from or to.
         @return ArrayList<AState> - all the states possible to advance to from that certain state.
         */
-        ArrayList<AState> successors = new ArrayList<AState>();
+
         int i = ((MazeState) s).getPosition().getRowIndex();
         int j = ((MazeState) s).getPosition().getColumnIndex();
         boolean up = false;
@@ -81,7 +88,7 @@ public class SearchableMaze implements ISearchable {
     }
 
     public SearchableMaze(Maze maze){
-       this.maze = maze;
+        this.maze = maze;
     }
 }
 

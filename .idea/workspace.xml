@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7d4fc87e-c8e4-44ab-b1ea-59b26596ef31" name="Default Changelist" comment="post 3D">
-      <change afterPath="$PROJECT_DIR$/JUnit/algorithms/search/BestFirstSearchTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JUnit/algorithms/search/BreadthFirstSearchTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JUnit/algorithms/search/DepthFirstSearchTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/algorithms/maze3D/IMazeGenerator3D.java" afterDir="false" />
+    <list default="true" id="7d4fc87e-c8e4-44ab-b1ea-59b26596ef31" name="Default Changelist" comment="junit tests bfs dfs best">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ATP-Project-PartA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ATP-Project-PartA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JUnit/algorithms/search/BestFirstSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit/algorithms/search/BestFirstSearchTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/maze3D/IMazeGenerator3D.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/search/SearchableMaze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/search/SearchableMaze.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -326,7 +324,13 @@
       <option name="project" value="LOCAL" />
       <updated>1618132962542</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL‎00014" summary="junit tests bfs dfs best">
+      <created>1618143411004</created>
+      <option name="number" value="LOCAL‎00014" />
+      <option name="presentableId" value="LOCAL‎00014" />
+      <updated>1618143411004</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,7 +373,8 @@
     <MESSAGE value="pre 3D" />
     <MESSAGE value="3D 1.0" />
     <MESSAGE value="post 3D" />
-    <option name="LAST_COMMIT_MESSAGE" value="post 3D" />
+    <MESSAGE value="junit tests bfs dfs best" />
+    <option name="LAST_COMMIT_MESSAGE" value="junit tests bfs dfs best" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
