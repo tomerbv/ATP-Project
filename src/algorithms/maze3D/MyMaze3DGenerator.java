@@ -14,7 +14,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
      * @return Maze - a generated maze with walls spread randomly using Randomized Prim algorithm.
      */
     public Maze3D generate(int depth, int rows, int columns) {
-        if(depth < 3 || rows < 3 || columns < 3 )
+        if(depth < 2 || rows < 2 || columns < 2 )
             return null;
         Position3D start = RandomWall3D(depth, rows, columns);
         Position3D goal = new Position3D((depth - 1) - start.getDepthIndex(),(rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());

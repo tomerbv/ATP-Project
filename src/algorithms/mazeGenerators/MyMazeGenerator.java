@@ -74,7 +74,7 @@ public class MyMazeGenerator extends AMazeGenerator{
                 j = columns - 1;
         }
         else{
-            j = (int) (Math.random() * (rows - 1));
+            j = (int) (Math.random() * (columns - 1));
             if(Math.random() > 0.5)
                 i = 0;
             else
