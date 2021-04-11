@@ -13,7 +13,9 @@ public class Position {
      * @param row the point's row index.
      * @param column the point's column index
      */
-    public Position(int row, int column) {
+    public Position(int row, int column) throws Exception {
+        if(row < 0 || column < 0)
+            throw new Exception("Invalid Dimension Size");
         this.row = row;
         this.column = column;
     }

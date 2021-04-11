@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class BreadthFirstSearchTest {
     @Test
-    void searchbfs() {
+    void searchbfs() throws Exception {
         MyMazeGenerator generator = new MyMazeGenerator();
         for (int rows = 2; rows <= 20; rows++) {
             for (int columns = 2; columns <= 20; columns++) {
@@ -19,6 +19,15 @@ class BreadthFirstSearchTest {
                     maze.superprint();
                 }
             }
+        }
+        try{
+            Maze maze1 = generator.generate(0, 0);
+            SearchableMaze searchableMaze = new SearchableMaze(maze1);
+            BestFirstSearch bfsalgo = new BestFirstSearch();
+            Solution solution = bfsalgo.solve(searchableMaze);
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

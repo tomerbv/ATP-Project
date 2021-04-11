@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DepthFirstSearchTest {
     @Test
-    void searchdfs() {
+    void searchdfs() throws Exception {
         MyMazeGenerator generator = new MyMazeGenerator();
-        for (int rows = 2; rows <= 20; rows++) {
-            for (int columns = 2; columns <= 20; columns++) {
+        for (int rows = 2; rows <= 50; rows++) {
+            for (int columns = 2; columns <= 50; columns++) {
                 Maze maze = generator.generate(rows, columns);
                 SearchableMaze searchableMaze = new SearchableMaze(maze);
                 DepthFirstSearch bfsalgo = new DepthFirstSearch();

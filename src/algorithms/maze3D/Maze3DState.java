@@ -3,23 +3,37 @@ package algorithms.maze3D;
 import algorithms.search.AState;
 
 
+/**
+ *  class that represents a state in a Maze3D
+ */
 public class Maze3DState extends AState {
     Position3D position;
 
     /**
-     * @param position represents the position in the maze we are in
-     * default constructor that initiates cost to 0
-     * other constructor that recieves a cost and initiates it to the mazestate field
+     * @param position The position of the current state.
+     * default constructor that initiates cost to.
      */
-    public Maze3DState(Position3D position){
+    public Maze3DState(Position3D position)throws Exception {
         super();
+        if(position == null)
+            throw new Exception("Null Argument");
         this.position = position;
     }
 
-    public Maze3DState(Position3D position, double cost){
-        super(cost);
+    /** Other constructor that receives a cost and initiates it.
+     * @param position The position of the current state.
+     * @param cost the cost accumulated to that state from the start
+     */
+    public Maze3DState(Position3D position, double cost)throws Exception {
+        super();
+        if(position == null)
+            throw new Exception("Null Argument");
         this.position = position;
     }
+
+    /** Position3D Getter
+     * @return Position3D the Position of the current state.
+     */
     public Position3D getPosition(){
         return this.position;
     }

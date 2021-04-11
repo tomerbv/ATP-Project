@@ -13,9 +13,9 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
      * @param columns - Determines dimension of columns for the created maze
      * @return Maze - a generated maze with walls spread randomly using Randomized Prim algorithm.
      */
-    public Maze3D generate(int depth, int rows, int columns) {
+    public Maze3D generate(int depth, int rows, int columns) throws Exception {
         if(depth < 2 || rows < 2 || columns < 2 )
-            return null;
+            throw new Exception("Invalid Dimension Size");
         Position3D start = RandomWall3D(depth, rows, columns);
         Position3D goal = new Position3D((depth - 1) - start.getDepthIndex(),(rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());
         HashSet<Position3D> Unvisited = new HashSet<Position3D>(); //
@@ -68,7 +68,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
      * @param columns - The mazes columns dimension
      * @return Position - a random Position on one of the mazes walls
      */
-    private Position3D RandomWall3D(int depth, int rows, int columns){
+    private Position3D RandomWall3D(int depth, int rows, int columns) throws Exception {
         int k,i,j;
         double rand = Math.random();
         /** depth axis */
@@ -111,7 +111,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
      *                teared down between the start and goal Positions.
      * @return boolean True if a path can be created or False otherwise.
      */
-    private boolean CanBePath(Position3D pos, Maze3D maze ,int depth, int rows, int columns, int connect){
+    private boolean CanBePath(Position3D pos, Maze3D maze ,int depth, int rows, int columns, int connect) throws Exception {
         ArrayList<Position3D> neighbors = GetNeighbors( maze , depth, rows, columns, pos.getDepthIndex(), pos.getRowIndex() ,pos.getColumnIndex());
         int counter = 0;
         for (Position3D neighbor: neighbors) {
@@ -131,7 +131,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
      * @param j The questioned Position's column index
      * @return ArrayList of Positions that are neighbors of the Position in question.
      */
-    private ArrayList<Position3D> GetNeighbors(Maze3D maze , int depth, int rows, int columns, int k, int i, int j) {
+    private ArrayList<Position3D> GetNeighbors(Maze3D maze , int depth, int rows, int columns, int k, int i, int j) throws Exception {
         ArrayList<Position3D> neighbors = new ArrayList<Position3D>();
         /** Depth dimension neighbors. */
         if(k == 0)

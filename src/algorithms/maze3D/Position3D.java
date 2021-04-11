@@ -11,7 +11,9 @@ public class Position3D {
      * @param row the point's row index.
      * @param column the point's column index
      */
-    public Position3D(int depth, int row, int column) {
+    public Position3D(int depth, int row, int column) throws Exception {
+        if(depth < 0 || row < 0 || column < 0)
+            throw new Exception("Invalid Dimension Size");
         this.depth = depth;
         this.row = row;
         this.column = column;

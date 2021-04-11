@@ -8,26 +8,30 @@ import java.util.ArrayList;
 public class SearchableMaze3D implements ISearchable {
     Maze3D maze;
 
+    /** start state Getter
+     * @return AState - the state which is the start position of the maze.
+     */
     @Override
-    public AState getStartState(){
-        //@return AState - the state which is the start position of the maze.
+    public AState getStartState() throws Exception {
         return new Maze3DState(maze.getStartPosition());
-
     }
+
+    /** goal state Getter
+     * @return AState - the state which is the goal position of the maze.
+     */
     @Override
-    public AState getGoalState(){
-        //@return AState - the state which is the goal position of the maze.
+    public AState getGoalState() throws Exception {
         return new Maze3DState(maze.getGoalPosition());
     }
 
-     /* Get all Successors (possible Positions to advance to in the maze) from a certain state
-     @param  a certain state the searching algorithm moves from or to.
+     /** Get all Successors (possible Positions to advance to in the maze) from a certain state
+     @param  s a certain state the searching algorithm moves from or to.
      @return ArrayList<AState> - all the states possible to advance to from that certain state.
      */
 
     @Override
-    public ArrayList<AState> getAllSuccessors(AState s) {
-        /* Get all Successors (possible Positions to advance to in the maze) from a certain state
+    public ArrayList<AState> getAllSuccessors(AState s) throws Exception {
+        /** Get all Successors (possible Positions to advance to in the maze) from a certain state
         @param AState - a certain state the searching algorithm moves from or to.
         @return ArrayList<AState> - all the states possible to advance to from that certain state.
         */

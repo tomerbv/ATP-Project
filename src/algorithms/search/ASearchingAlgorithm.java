@@ -7,7 +7,7 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
 
 
 
-    public abstract Solution solve(ISearchable domain);
+    public abstract Solution solve(ISearchable domain) throws Exception;
     public abstract String getName();
 
     public int getNumberOfNodesEvaluated(){

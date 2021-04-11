@@ -5,20 +5,22 @@ public class Maze3D {
     Position3D goalPosition;
     int[][][] map;
 
-
-    /** Constructor
-     * @param rows - Determines number of rows for the created maze.
-     * @param columns - Determines number of columns for the created maze.
+    /**Constructor
      * @param start - Determines the starting position of the maze.
      * @param goal - Determines the goal position of the maze.
+     * @param map3D - a 3 Dimension grid of integers representing the maze
      */
-    public Maze3D( Position3D start ,Position3D goal, int[][][] map3D) {
+    public Maze3D( Position3D start ,Position3D goal, int[][][] map3D) throws Exception {
+        if(start == null || goal == null || map3D == null){
+            throw new Exception("Null Arguments");
+        }
         this.startPosition = start;
         this.goalPosition = goal;
         this.map = map3D;
     }
 
     /** Grid setter by index.
+     * @param depth The specified cell's depth.
      * @param row - The specified cell's row.
      * @param column - The specified cell's column.
      * @param val - The value to set to that cell.
@@ -41,7 +43,6 @@ public class Maze3D {
     public Position3D getGoalPosition(){
         return this.goalPosition;
     }
-
 
     /** Depth dimension getter.
      * @return int depth.
@@ -96,6 +97,9 @@ public class Maze3D {
         System.out.println("}");
     }
 
+    /**
+     * Customized print for a better visual grasp of the maze.
+     */
     public void superprint(){
         System.out.println("{");
         for(int depth = 0; depth < map.length; depth++){
@@ -123,6 +127,10 @@ public class Maze3D {
         System.out.println("}");
     }
 
+    /** Private utility method for superprint method.
+     * @param i 0 or 1 indicating a wall or a path.
+     * @return String consisting of 2 chars representing a wall or a path.
+     */
     private String charprint(int i){
         if(i == 1)
             return ("██");

@@ -8,7 +8,7 @@ public abstract class AMaze3DGenerator implements IMaze3DGenerator {
      * @param columns Dimension of columns for the generated maze we measure
      * @return long - The time measured.
      */
-    public long measureAlgorithmTimeMillis(int depth, int rows, int columns) {
+    public long measureAlgorithmTimeMillis(int depth, int rows, int columns) throws Exception {
         long s = System.currentTimeMillis();
         generate(depth, rows, columns);
         return (System.currentTimeMillis() - s);

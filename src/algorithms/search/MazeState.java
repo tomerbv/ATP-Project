@@ -8,19 +8,27 @@ import algorithms.mazeGenerators.Position;
 public class MazeState extends AState{
     Position position;
 
-    /**
-     * @param position represents the position in the maze we are in
-     * default constructor that initiates cost to 0
-     * other constructor that recieves a cost and initiates it to the mazestate field
+    /**default constructor that initiates cost to 0
+     * @param position The position of the current state.
      */
-    public MazeState(Position position){
+    public MazeState(Position position) throws Exception {
         super();
+        if(position == null)
+            throw new Exception("Null Argument");
         this.position = position;
     }
-    public MazeState(Position position, double cost){
+
+    /**other constructor that receives a cost and initiates it.
+     * @param position The position of the current state.
+     * @param cost the cost accumulated to that state from the start
+     */
+    public MazeState(Position position, double cost) throws Exception {
         super(cost);
+        if(position == null)
+            throw new Exception("Null Argument");
         this.position = position;
     }
+
     public Position getPosition(){
         return this.position;
     }

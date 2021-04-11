@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BestFirstSearchTest {
     @Test
-    void searchbestfirst() {
+    void searchbestfirst() throws Exception {
         MyMazeGenerator generator = new MyMazeGenerator();
         for (int rows = 2; rows <= 50; rows++) {
             for (int columns = 2; columns <= 50; columns++) {
@@ -22,12 +22,8 @@ class BestFirstSearchTest {
                 }
             }
         }
-        Maze maze1 = generator.generate(0, 0);
-        SearchableMaze searchableMaze = new SearchableMaze(maze1);
-        BestFirstSearch bfsalgo = new BestFirstSearch();
-        Solution solution = bfsalgo.solve(searchableMaze);
-        if (solution == null)
-            System.out.println("could not search in null maze");
+
+
 
 
 

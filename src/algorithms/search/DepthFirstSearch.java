@@ -30,7 +30,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
      * @return an object of type solution with the goal state
      */
     @Override
-    public Solution solve(ISearchable domain) {
+    public Solution solve(ISearchable domain) throws Exception {
         if (domain == null)
             return null;
         Stack<AState> Open = new Stack<AState>();

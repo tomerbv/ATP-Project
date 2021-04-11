@@ -11,7 +11,9 @@ public class SearchableMaze implements ISearchable {
     Maze maze;
 
     @Override
-    public AState getStartState(){
+    public AState getStartState() throws Exception {
+        if(maze == null)
+            throw new Exception("Maze data member not initiated");
         if(this.maze==null)
             return null;
         //@return AState - the state which is the start position of the maze.
@@ -19,7 +21,9 @@ public class SearchableMaze implements ISearchable {
 
     }
     @Override
-    public AState getGoalState(){
+    public AState getGoalState() throws Exception {
+        if(maze == null)
+            throw new Exception("Maze data member not initiated");
         if(this.maze==null)
             return null;
         //@return AState - the state which is the goal position of the maze.
@@ -32,7 +36,9 @@ public class SearchableMaze implements ISearchable {
      */
 
     @Override
-    public ArrayList<AState> getAllSuccessors(AState s) {
+    public ArrayList<AState> getAllSuccessors(AState s) throws Exception {
+        if(s==null)
+            throw new Exception("Null Argument");
         ArrayList<AState> successors = new ArrayList<AState>();
         if(this.maze == null)
             return successors;

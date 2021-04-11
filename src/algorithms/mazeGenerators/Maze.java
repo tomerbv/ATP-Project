@@ -9,12 +9,14 @@ public class Maze {
     int[][] map;
 
     /** Constructor
-     * @param rows - Determines number of rows for the created maze.
-     * @param columns - Determines number of columns for the created maze.
      * @param start - Determines the starting position of the maze.
      * @param goal - Determines the goal position of the maze.
+     * @param map - a 3 Dimension grid of integers representing the maze.
      */
-    public Maze(Position start ,Position goal, int[][] map) {
+    public Maze(Position start ,Position goal, int[][] map) throws Exception {
+        if(start == null || goal == null || map == null){
+            throw new Exception("Null Arguments");
+        }
         this.start = start;
         this.goal = goal;
         this.map = map;

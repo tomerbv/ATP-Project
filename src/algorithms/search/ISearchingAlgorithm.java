@@ -5,7 +5,7 @@ public interface ISearchingAlgorithm {
     * @param domain represents the domain we are searching
     * @return the path step by step of the solution to the problem in the domain
     */
-   Solution solve(ISearchable domain);
+   Solution solve(ISearchable domain) throws Exception;
    int getNumberOfNodesEvaluated();
    String getName();
 

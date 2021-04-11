@@ -12,9 +12,9 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param columns - Determines number of columns for the created maze
      * @return Maze - a generated maze with walls spread randomly using Randomized Prim algorithm.
      */
-    public Maze generate(int rows, int columns) {
+    public Maze generate(int rows, int columns) throws Exception {
         if(rows < 2 || columns < 2 )
-            return null;
+            throw new Exception("Invalid Dimension Size");
         Position start = RandomWall(rows, columns);
         Position goal = new Position((rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());
         HashSet<Position> Unvisited = new HashSet<Position>();
@@ -46,16 +46,21 @@ public class MyMazeGenerator extends AMazeGenerator{
              /** anyway, we remove the cell from the arraylist */
             neighbors.remove(randindex);
 
-            if(neighbors.isEmpty() && !(Unvisited.isEmpty())){
+            /** Making sure all the maze have been reached */
+            if(neighbors.isEmpty() && !(Unvisited.isEmpty())) {
+                connect = 2;
                 neighbor = Unvisited.iterator().next();
                 Unvisited.remove(neighbor);
                 neighbors.add(neighbor);
-                /** if the gaol position hasent been reached we make sure the maze is solvable
-                 * by tearing walls that have more than one path neghbor.*/
-                 if(maze.GetPositionVal(goal.getRowIndex(),goal.getColumnIndex()) != 0)
-                    connect = 1;
             }
         }
+        /** last check that the goal noad is not serounded by walls */
+        neighbors = GetNeighbors(maze, rows, columns, goal.getRowIndex(), goal.getColumnIndex());
+        for (int i=0; i < neighbors.size(); i++){
+            if (maze.GetPositionVal(neighbors.get(i).getRowIndex(),neighbors.get(i).getColumnIndex()) == 0)
+                return maze;
+        }
+        maze.set(neighbors.get(0).getRowIndex(),neighbors.get(0).getColumnIndex(),0);
         return maze;
     }
 
@@ -64,7 +69,7 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param columns - The mazes columns dimension
      * @return Position - a random Position on one of the mazes walls
      */
-    private Position RandomWall(int rows, int columns){
+    private Position RandomWall(int rows, int columns) throws Exception {
         int i,j;
         if(Math.random() > 0.5){
             i = (int) (Math.random() * (rows - 1));
@@ -93,7 +98,7 @@ public class MyMazeGenerator extends AMazeGenerator{
      *                teared down between the start and goal Positions.
      * @return boolean True if a path can be created or False otherwise.
      */
-    private boolean CanBePath(Position pos, Maze maze , int rows, int columns, int connect){
+    private boolean CanBePath(Position pos, Maze maze , int rows, int columns, int connect) throws Exception {
         ArrayList<Position> neighbors = GetNeighbors( maze ,  rows,  columns, pos.getRowIndex() ,pos.getColumnIndex());
         int counter = 0;
         for (Position neighbor: neighbors) {
@@ -113,7 +118,7 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param j The questioned Position's column index
      * @return ArrayList of Positions that are neighbors of the Position in question.
      */
-    private ArrayList<Position> GetNeighbors(Maze maze , int rows, int columns, int i, int j) {
+    private ArrayList<Position> GetNeighbors(Maze maze , int rows, int columns, int i, int j) throws Exception {
         ArrayList<Position> neighbors = new ArrayList<Position>();
         /** Rows dimension neighbors.*/
         if (i == 0)
