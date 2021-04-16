@@ -34,6 +34,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
     public Solution solve(ISearchable domain) throws Exception {
         if (domain == null)
             return null;
+        this.NodesEvaluated = 0;
         PriorityQueue<AState> Open = new PriorityQueue<AState>();
         HashSet<AState> Closed = new HashSet<AState>();
         ArrayList<AState> Successors = new ArrayList<AState>();

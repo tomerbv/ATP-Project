@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class RunSearchOnMaze3D {
     public static void main(String[] args) throws Exception {
         IMaze3DGenerator mg = new MyMaze3DGenerator();
-        Maze3D maze = mg.generate(10,10, 10);
+        Maze3D maze = mg.generate(30,30, 30);
         SearchableMaze3D searchableMaze = new SearchableMaze3D(maze);
         maze.superprint();
         solveProblem(searchableMaze, new BreadthFirstSearch());

@@ -29,7 +29,7 @@ public class MyMazeGenerator extends AMazeGenerator{
         int randindex, connect = 0;
         maze.set(start.getRowIndex(), start.getColumnIndex(), 0);
         Unvisited.remove(start);
-        ArrayList<Position> neighbors = GetNeighbors(maze, rows, columns, start.getRowIndex(), start.getColumnIndex());
+        ArrayList<Position> neighbors = GetNeighbors( rows, columns, start.getRowIndex(), start.getColumnIndex());
         while (!neighbors.isEmpty()) {
             randindex = (int) (Math.random() * (neighbors.size() - 1));
             Position neighbor = neighbors.get(randindex);
@@ -41,7 +41,7 @@ public class MyMazeGenerator extends AMazeGenerator{
              /** then if that neighbor can be a path we set him to the value 0 and add his neighbors to the arraylist */
             else if(maze.GetPositionVal(neighbor.getRowIndex(),neighbor.getColumnIndex()) != 0 && CanBePath(neighbor, maze, rows, columns, connect)){
                 maze.set(neighbor.getRowIndex(),neighbor.getColumnIndex(),0);
-                neighbors.addAll(GetNeighbors(maze, rows, columns, neighbor.getRowIndex(), neighbor.getColumnIndex()));
+                neighbors.addAll(GetNeighbors( rows, columns, neighbor.getRowIndex(), neighbor.getColumnIndex()));
             }
              /** anyway, we remove the cell from the arraylist */
             neighbors.remove(randindex);
@@ -54,13 +54,14 @@ public class MyMazeGenerator extends AMazeGenerator{
                 neighbors.add(neighbor);
             }
         }
-        /** last check that the goal noad is not serounded by walls */
-        neighbors = GetNeighbors(maze, rows, columns, goal.getRowIndex(), goal.getColumnIndex());
+        /** checking that the goal node is not surrounded by walls */
+        neighbors = GetNeighbors( rows, columns, goal.getRowIndex(), goal.getColumnIndex());
         for (int i=0; i < neighbors.size(); i++){
             if (maze.GetPositionVal(neighbors.get(i).getRowIndex(),neighbors.get(i).getColumnIndex()) == 0)
                 return maze;
         }
         maze.set(neighbors.get(0).getRowIndex(),neighbors.get(0).getColumnIndex(),0);
+
         return maze;
     }
 
@@ -99,7 +100,7 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @return boolean True if a path can be created or False otherwise.
      */
     private boolean CanBePath(Position pos, Maze maze , int rows, int columns, int connect) throws Exception {
-        ArrayList<Position> neighbors = GetNeighbors( maze ,  rows,  columns, pos.getRowIndex() ,pos.getColumnIndex());
+        ArrayList<Position> neighbors = GetNeighbors(rows,  columns, pos.getRowIndex() ,pos.getColumnIndex());
         int counter = 0;
         for (Position neighbor: neighbors) {
             if (maze.GetPositionVal(neighbor.getRowIndex(),neighbor.getColumnIndex()) == 0)
@@ -111,14 +112,13 @@ public class MyMazeGenerator extends AMazeGenerator{
     }
 
     /** Utility method to get the neighbors of a certain cell' while making sure they are within the boundaries of the maze
-     * @param maze The current maze
      * @param rows Mazes rows dimension
      * @param columns Mazes rows dimension
      * @param i The questioned Position's row index
      * @param j The questioned Position's column index
      * @return ArrayList of Positions that are neighbors of the Position in question.
      */
-    private ArrayList<Position> GetNeighbors(Maze maze , int rows, int columns, int i, int j) throws Exception {
+    private ArrayList<Position> GetNeighbors( int rows, int columns, int i, int j) throws Exception {
         ArrayList<Position> neighbors = new ArrayList<Position>();
         /** Rows dimension neighbors.*/
         if (i == 0)

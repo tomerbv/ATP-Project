@@ -33,9 +33,10 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     public Solution solve(ISearchable domain) throws Exception {
         if (domain == null)
             return null;
+        this.NodesEvaluated = 0;
         Stack<AState> Open = new Stack<AState>();
         HashSet<AState> Closed = new HashSet<AState>();
-        ArrayList<AState> Successors = new ArrayList<AState>();
+        ArrayList<AState> Successors;
         Open.push(domain.getStartState());
         AState currNode;
         while (!Open.isEmpty()) {

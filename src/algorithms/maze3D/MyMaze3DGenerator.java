@@ -1,7 +1,5 @@
 package algorithms.maze3D;
 
-import algorithms.mazeGenerators.Position;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -18,7 +16,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
             throw new Exception("Invalid Dimension Size");
         Position3D start = RandomWall3D(depth, rows, columns);
         Position3D goal = new Position3D((depth - 1) - start.getDepthIndex(),(rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());
-        HashSet<Position3D> Unvisited = new HashSet<Position3D>(); //
+        HashSet<Position3D> Unvisited = new HashSet<>(); //
         int[][][] map3D = new int[depth][rows][columns];
         Maze3D maze = new Maze3D(start, goal, map3D);
         for (int k = 0; k <= depth - 1; k++) {
@@ -32,33 +30,38 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         int randindex, connect = 0;
         maze.set(start.getDepthIndex(), start.getRowIndex(), start.getColumnIndex(), 0);
         Unvisited.remove(start);
-        ArrayList<Position3D> neighbors = GetNeighbors(maze, depth, rows, columns, start.getDepthIndex(), start.getRowIndex(), start.getColumnIndex());
+        ArrayList<Position3D> neighbors = GetNeighbors(depth, rows, columns, start.getDepthIndex(), start.getRowIndex(), start.getColumnIndex());
         while (!neighbors.isEmpty()) {
             randindex = (int) (Math.random() * (neighbors.size() - 1));
             Position3D neighbor = neighbors.get(randindex);
             Unvisited.remove(neighbor);
-            /** first we check if a the cell is the goal so the path will exist without doubt */
+            /* first we check if a the cell is the goal so the path will exist without doubt */
             if(neighbor.getRowIndex() == goal.getRowIndex() && neighbor.getColumnIndex() == goal.getColumnIndex()) {
                 maze.set(neighbor.getDepthIndex(), neighbor.getRowIndex(), neighbor.getColumnIndex(), 0);
             }
-            /** then if that neighbor can be a path we set him to the value 0 and add his neighbors to the arraylist */
+            /* then if that neighbor can be a path we set him to the value 0 and add his neighbors to the arraylist */
             else if(maze.GetPositionVal(neighbor.getDepthIndex(), neighbor.getRowIndex(),neighbor.getColumnIndex()) != 0 && CanBePath(neighbor, maze, depth, rows, columns, connect)){
                 maze.set(neighbor.getDepthIndex(), neighbor.getRowIndex(),neighbor.getColumnIndex(),0);
-                neighbors.addAll(GetNeighbors(maze, depth, rows, columns, neighbor.getDepthIndex(), neighbor.getRowIndex(), neighbor.getColumnIndex()));
+                neighbors.addAll(GetNeighbors(depth, rows, columns, neighbor.getDepthIndex(), neighbor.getRowIndex(), neighbor.getColumnIndex()));
             }
-            /** anyway, we remove the cell from the arraylist BY INDEX to improve time complexity */
+            /* anyway, we remove the cell from the arraylist BY INDEX to improve time complexity */
             neighbors.remove(randindex);
 
-            if(neighbors.isEmpty() && !(Unvisited.isEmpty())){
+            /** Making sure all the maze have been reached */
+            if(neighbors.isEmpty() && !(Unvisited.isEmpty())) {
+                connect = 2;
                 neighbor = Unvisited.iterator().next();
                 Unvisited.remove(neighbor);
                 neighbors.add(neighbor);
-                /** if the goal position hasent been reached we make sure the maze is solvable
-                 * by tearing walls that have more than one path neghbor.*/
-                if(maze.GetPositionVal(neighbor.getDepthIndex(), goal.getRowIndex(),goal.getColumnIndex()) != 0)
-                    connect = 1;
             }
         }
+        /** checking that the goal node is not surrounded by walls */
+        neighbors = GetNeighbors(depth, rows, columns, goal.getDepthIndex(), goal.getRowIndex(), goal.getColumnIndex());
+        for (int i=0; i < neighbors.size(); i++){
+            if (maze.GetPositionVal(neighbors.get(i).getDepthIndex(), neighbors.get(i).getRowIndex(),neighbors.get(i).getColumnIndex()) == 0)
+                return maze;
+        }
+        maze.set(neighbors.get(0).getDepthIndex(), neighbors.get(0).getRowIndex(),neighbors.get(0).getColumnIndex(),0);
         return maze;
     }
 
@@ -71,8 +74,8 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
     private Position3D RandomWall3D(int depth, int rows, int columns) throws Exception {
         int k,i,j;
         double rand = Math.random();
-        /** depth axis */
-        if(rand > 1/3){
+        /* depth axis */
+        if(rand > (float)(1/3)){
             i = (int) (Math.random() * (rows - 1));
             j = (int) (Math.random() * (columns - 1));
             if(Math.random() > 0.5)
@@ -80,8 +83,8 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
             else
                 k = depth - 1;
         }
-        /** row axis */
-        else if(rand > 2/3){
+        /* row axis */
+        else if(rand > (float)(2/3)){
             k = (int) (Math.random() * (depth - 1));
             j = (int) (Math.random() * (columns - 1));
             if(Math.random() > 0.5)
@@ -89,7 +92,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
             else
                 i = rows - 1;
         }
-        /** column axis */
+        /* column axis */
         else{
             k = (int) (Math.random() * (depth - 1));
             i = (int) (Math.random() * (rows - 1));
@@ -112,7 +115,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
      * @return boolean True if a path can be created or False otherwise.
      */
     private boolean CanBePath(Position3D pos, Maze3D maze ,int depth, int rows, int columns, int connect) throws Exception {
-        ArrayList<Position3D> neighbors = GetNeighbors( maze , depth, rows, columns, pos.getDepthIndex(), pos.getRowIndex() ,pos.getColumnIndex());
+        ArrayList<Position3D> neighbors = GetNeighbors( depth, rows, columns, pos.getDepthIndex(), pos.getRowIndex() ,pos.getColumnIndex());
         int counter = 0;
         for (Position3D neighbor: neighbors) {
             if (maze.GetPositionVal(neighbor.getDepthIndex(), neighbor.getRowIndex(),neighbor.getColumnIndex()) == 0)
@@ -124,16 +127,15 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
     }
 
     /** Utility method to get the neighbors of a certain cell' while making sure they are within the boundaries of the maze
-     * @param maze The current maze
      * @param rows Mazes rows dimension
      * @param columns Mazes rows dimension
      * @param i The questioned Position's row index
      * @param j The questioned Position's column index
      * @return ArrayList of Positions that are neighbors of the Position in question.
      */
-    private ArrayList<Position3D> GetNeighbors(Maze3D maze , int depth, int rows, int columns, int k, int i, int j) throws Exception {
-        ArrayList<Position3D> neighbors = new ArrayList<Position3D>();
-        /** Depth dimension neighbors. */
+    private ArrayList<Position3D> GetNeighbors( int depth, int rows, int columns, int k, int i, int j) throws Exception {
+        ArrayList<Position3D> neighbors = new ArrayList<>();
+        /* Depth dimension neighbors. */
         if(k == 0)
             neighbors.add(new Position3D(k+1,i, j));
         else if(k == depth - 1)
@@ -142,7 +144,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
             neighbors.add(new Position3D(k + 1, i, j));
             neighbors.add(new Position3D(k - 1, i, j));
         }
-        /** Rows dimension neighbors. */
+        /* Rows dimension neighbors. */
         if(i == 0)
             neighbors.add(new Position3D(k,i+1, j));
         else if(i == rows - 1)
@@ -151,7 +153,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
             neighbors.add(new Position3D(k , i+1, j));
             neighbors.add(new Position3D(k, i-1, j));
         }
-        /** Columns dimension neighbors. */
+        /* Columns dimension neighbors. */
         if(j == 0)
             neighbors.add(new Position3D(k,i, j+1));
         else if(j == columns - 1)

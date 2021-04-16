@@ -107,10 +107,10 @@ public class Maze3D {
                 System.out.print("{ ");
                 for (int col = 0; col < map[0][0].length; col++) {
                     if (depth == startPosition.getDepthIndex() && row == startPosition.getRowIndex() && col == startPosition.getColumnIndex()) // if the position is the start - mark with S
-                        System.out.print("S ");
+                        System.out.print(" S ");
                     else {
                         if (depth == goalPosition.getDepthIndex() && row == goalPosition.getRowIndex() && col == goalPosition.getColumnIndex()) // if the position is the goal - mark with E
-                            System.out.print("E ");
+                            System.out.print(" E ");
                         else
                             System.out.print(charprint(map[depth][row][col]) + " ");
                     }

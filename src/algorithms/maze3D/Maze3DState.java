@@ -25,7 +25,7 @@ public class Maze3DState extends AState {
      * @param cost the cost accumulated to that state from the start
      */
     public Maze3DState(Position3D position, double cost)throws Exception {
-        super();
+        super(cost);
         if(position == null)
             throw new Exception("Null Argument");
         this.position = position;

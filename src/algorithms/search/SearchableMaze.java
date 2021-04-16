@@ -42,10 +42,6 @@ public class SearchableMaze implements ISearchable {
         ArrayList<AState> successors = new ArrayList<AState>();
         if(this.maze == null)
             return successors;
-        /* Get all Successors (possible Positions to advance to in the maze) from a certain state
-        @param AState - a certain state the searching algorithm moves from or to.
-        @return ArrayList<AState> - all the states possible to advance to from that certain state.
-        */
 
         int i = ((MazeState) s).getPosition().getRowIndex();
         int j = ((MazeState) s).getPosition().getColumnIndex();
