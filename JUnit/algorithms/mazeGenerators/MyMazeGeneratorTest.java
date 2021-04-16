@@ -1,9 +1,6 @@
 package algorithms.mazeGenerators;
 
-import algorithms.maze3D.MyMaze3DGenerator;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MyMazeGeneratorTest {
 

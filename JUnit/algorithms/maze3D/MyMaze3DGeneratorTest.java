@@ -3,6 +3,7 @@ package algorithms.maze3D;
 import algorithms.search.*;
 import org.junit.jupiter.api.Test;
 
+
 class MyMaze3DGeneratorTest {
     @Test
     void generate() throws Exception {

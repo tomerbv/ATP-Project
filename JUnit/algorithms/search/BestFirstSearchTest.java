@@ -4,8 +4,6 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class BestFirstSearchTest {
     @Test
     void searchbestfirst() throws Exception {

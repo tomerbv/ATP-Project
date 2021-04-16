@@ -61,7 +61,6 @@ public class MyMazeGenerator extends AMazeGenerator{
                 return maze;
         }
         maze.set(neighbors.get(0).getRowIndex(),neighbors.get(0).getColumnIndex(),0);
-
         return maze;
     }
 
