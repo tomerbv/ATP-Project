@@ -7,6 +7,6 @@
 /httpRequests/
 
 
-/.idea
-/ATP-Project.iml
-/out
+.idea
+ATP-Project.iml
+/out/
