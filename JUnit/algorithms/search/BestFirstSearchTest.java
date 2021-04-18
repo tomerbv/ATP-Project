@@ -20,11 +20,5 @@ class BestFirstSearchTest {
                 }
             }
         }
-
-
-
-
-
     }
-
 }

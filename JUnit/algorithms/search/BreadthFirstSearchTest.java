@@ -20,14 +20,6 @@ class BreadthFirstSearchTest {
                 }
             }
         }
-        try{
-            Maze maze1 = generator.generate(0, 0);
-            SearchableMaze searchableMaze = new SearchableMaze(maze1);
-            BestFirstSearch bfsalgo = new BestFirstSearch();
-            Solution solution = bfsalgo.solve(searchableMaze);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+
     }
 }

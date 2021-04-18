@@ -47,7 +47,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
             /* anyway, we remove the cell from the arraylist BY INDEX to improve time complexity */
             neighbors.remove(randindex);
 
-            /** Making sure all the maze have been reached */
+            /* Making sure all the maze have been reached */
             if(neighbors.isEmpty() && !(Unvisited.isEmpty())) {
                 connect = 2;
                 neighbor = Unvisited.iterator().next();
@@ -55,7 +55,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
                 neighbors.add(neighbor);
             }
         }
-        /** checking that the goal node is not surrounded by walls */
+        /* checking that the goal node is not surrounded by walls */
         neighbors = GetNeighbors(depth, rows, columns, goal.getDepthIndex(), goal.getRowIndex(), goal.getColumnIndex());
         for (int i=0; i < neighbors.size(); i++){
             if (maze.GetPositionVal(neighbors.get(i).getDepthIndex(), neighbors.get(i).getRowIndex(),neighbors.get(i).getColumnIndex()) == 0)

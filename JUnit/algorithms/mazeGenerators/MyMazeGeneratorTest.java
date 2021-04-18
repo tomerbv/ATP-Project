@@ -2,6 +2,8 @@ package algorithms.mazeGenerators;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.DoubleStream;
+
 class MyMazeGeneratorTest {
 
     @Test
@@ -15,6 +17,14 @@ class MyMazeGeneratorTest {
                     }
                 }
             }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            /* input test */
+            MyMazeGenerator generator = new MyMazeGenerator();
+            Maze maze1 = generator.generate(0, 0);
         }
         catch (Exception e){
             e.printStackTrace();
