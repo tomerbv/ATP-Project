@@ -1,6 +1,8 @@
 package algorithms.maze3D;
 
-import algorithms.search.*;
+import algorithms.search.BestFirstSearch;
+import algorithms.search.BreadthFirstSearch;
+import algorithms.search.Solution;
 import org.junit.jupiter.api.Test;
 
 

@@ -2,8 +2,6 @@ package algorithms.mazeGenerators;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.stream.DoubleStream;
-
 class MyMazeGeneratorTest {
 
     @Test

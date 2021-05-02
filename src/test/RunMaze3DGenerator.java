@@ -1,6 +1,9 @@
 package test;
 
-import algorithms.maze3D.*;
+import algorithms.maze3D.IMaze3DGenerator;
+import algorithms.maze3D.Maze3D;
+import algorithms.maze3D.MyMaze3DGenerator;
+import algorithms.maze3D.Position3D;
 
 public class RunMaze3DGenerator {
     public static void main(String[] args) throws Exception {

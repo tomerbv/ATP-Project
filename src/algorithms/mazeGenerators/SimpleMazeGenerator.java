@@ -1,5 +1,4 @@
 package algorithms.mazeGenerators;
-import java.lang.Math;
 
 /**
  * SimpleMazeGenerator class generates a simple maze with at least 3 possible paths.
