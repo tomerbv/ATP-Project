@@ -21,6 +21,21 @@ public class Maze {
         this.goal = goal;
         this.map = map;
     }
+    public Maze(byte[] getinfo) throws Exception{
+       this.map = new int[getinfo[0]][getinfo[1]];
+       this.start = new Position(getinfo[2],getinfo[3]);
+       this.goal = new Position(getinfo[4],getinfo[5]);
+       int place = 6;
+        for (int i = 0; i < getinfo[0]; i++) {
+            for (int j = 0; j < getinfo[1]; j++) {
+                this.map[i][j] = getinfo[place];
+                place++;
+            }
+        }
+
+
+
+    }
 
     /** Grid setter by index.
      * @param row - The specified cell's row.
@@ -119,5 +134,27 @@ public class Maze {
         else
             return("  ");
     }
+    public byte[] toByteArray() {
+        byte[] bytearray = new byte[(this.getRows() * this.getColumns()) + 6];
+        bytearray[0] = (byte) this.getRows();
+        bytearray[1] = (byte) this.getColumns();
+        bytearray[2] = (byte) this.getStartPosition().row;
+        bytearray[3] = (byte) this.getStartPosition().column;
+        bytearray[4] = (byte) this.getGoalPosition().row;
+        bytearray[5] = (byte) this.getGoalPosition().column;
+        int place = 6;
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getColumns(); j++) {
+                bytearray[place] = (byte) GetPositionVal(i, j);
+                place++;
+
+            }
+
+        }
+        return bytearray;
+    }
+
+
+
 }
 
