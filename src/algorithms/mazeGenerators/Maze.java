@@ -24,25 +24,23 @@ public class Maze {
         this.map = map;
     }
     public Maze(byte[] getinfo) throws Exception{
-        ArrayList<Integer> dimenions = new ArrayList<Integer>();
+        int[] Arraycounter = new int[1];
+        int[] dimensions = new int[6];
+        dimensions[0]=CheckDimesons(getinfo,Arraycounter);
+        dimensions[1]=CheckDimesons(getinfo,Arraycounter);
+        dimensions[2]=CheckDimesons(getinfo,Arraycounter);
+        dimensions[3]=CheckDimesons(getinfo,Arraycounter);
+        dimensions[4]=CheckDimesons(getinfo,Arraycounter);
+        dimensions[5]=CheckDimesons(getinfo,Arraycounter);
 
-        int columns;
-        int dim=0;
-        int counter = 0;
-        while(((int)getinfo[counter])<0){
-            dim = dim*255;
-            counter++;
-        }
-        dim = dim + getinfo[counter];
-        rows = dim
-       this.map = new int[getinfo[0]][getinfo[1]];
-       this.start = new Position(getinfo[2],getinfo[3]);
-       this.goal = new Position(getinfo[4],getinfo[5]);
-       int place = 6;
-        for (int i = 0; i < getinfo[0]; i++) {
-            for (int j = 0; j < getinfo[1]; j++) {
-                this.map[i][j] = getinfo[place];
-                place++;
+        int counter = Arraycounter[0];
+        this.map = new int[dimensions[0]][dimensions[1]];
+        this.start = new Position(dimensions[2],dimensions[3]);
+        this.goal = new Position(dimensions[4],dimensions[5]);
+        for (int i = 0; i < dimensions[0]; i++) {
+            for (int j = 0; j < dimensions[1]; j++) {
+                this.map[i][j] = getinfo[counter];
+                counter++;
             }
         }
 
@@ -55,7 +53,17 @@ public class Maze {
      * @param column - The specified cell's column.
      * @param val - The value to set to that cell.
      */
-    public int CheckDimesons
+    public int CheckDimesons(byte[] ThisDim,int[] i) {
+        int dim = 0;
+        while(((int)ThisDim[i[0]])<0){
+            dim += ThisDim[i[0]]*(-255);
+            i[0]++;
+        }
+
+        dim = dim + ThisDim[i[0]];
+        return dim;
+
+    }
     public void set(int row, int column, int val){
         this.map[row][column] = val;
     }
