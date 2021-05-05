@@ -5,63 +5,70 @@ import java.util.HashSet;
 /**
  * MyMazeGenerator class generates a maze using Randomized Prim algorithm.
  */
-public class MyMazeGenerator extends AMazeGenerator{
+public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * @param rows    - Determines number of rows for the created maze
      * @param columns - Determines number of columns for the created maze
      * @return Maze - a generated maze with walls spread randomly using Randomized Prim algorithm.
      */
-    public Maze generate(int rows, int columns) throws Exception {
-        if(rows < 2 || columns < 2 )
-            throw new Exception("Invalid Dimension Size");
-        Position start = RandomWall(rows, columns);
-        Position goal = new Position((rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());
-        HashSet<Position> Unvisited = new HashSet<Position>();
-        int[][] map = new int[rows][columns];
-        Maze maze = new Maze(start,goal,map);
-        for (int i=0; i <= rows - 1; i++){
-            for (int j=0; j <= columns - 1; j++){
-                maze.set(i,j,1);
-                Unvisited.add(new Position(i,j));
+    public Maze generate(int rows, int columns) {
+        try {
+            if (rows < 2 || columns < 2)
+                throw new Exception("Invalid Dimension Size");
+            Position start = RandomWall(rows, columns);
+            Position goal = new Position((rows - 1) - start.getRowIndex(), (columns - 1) - start.getColumnIndex());
+            HashSet<Position> Unvisited = new HashSet<Position>();
+            int[][] map = new int[rows][columns];
+            Maze maze = new Maze(start, goal, map);
+            for (int i = 0; i <= rows - 1; i++) {
+                for (int j = 0; j <= columns - 1; j++) {
+                    maze.set(i, j, 1);
+                    Unvisited.add(new Position(i, j));
+                }
             }
-        }
-        int randindex, connect = 0;
-        maze.set(start.getRowIndex(), start.getColumnIndex(), 0);
-        Unvisited.remove(start);
-        ArrayList<Position> neighbors = GetNeighbors( rows, columns, start.getRowIndex(), start.getColumnIndex());
-        while (!neighbors.isEmpty()) {
-            randindex = (int) (Math.random() * (neighbors.size() - 1));
-            Position neighbor = neighbors.get(randindex);
-            Unvisited.remove(neighbor);
-            /** first we check if a the cell is the goal so the path will exist without doubt */
-            if(neighbor.getRowIndex() == goal.getRowIndex() && neighbor.getColumnIndex() == goal.getColumnIndex()) {
-                maze.set(neighbor.getRowIndex(), neighbor.getColumnIndex(), 0);
-            }
-             /** then if that neighbor can be a path we set him to the value 0 and add his neighbors to the arraylist */
-            else if(maze.GetPositionVal(neighbor.getRowIndex(),neighbor.getColumnIndex()) != 0 && CanBePath(neighbor, maze, rows, columns, connect)){
-                maze.set(neighbor.getRowIndex(),neighbor.getColumnIndex(),0);
-                neighbors.addAll(GetNeighbors( rows, columns, neighbor.getRowIndex(), neighbor.getColumnIndex()));
-            }
-             /** anyway, we remove the cell from the arraylist */
-            neighbors.remove(randindex);
-
-            /** Making sure all the maze have been reached */
-            if(neighbors.isEmpty() && !(Unvisited.isEmpty())) {
-                connect = 2;
-                neighbor = Unvisited.iterator().next();
+            int randindex, connect = 0;
+            maze.set(start.getRowIndex(), start.getColumnIndex(), 0);
+            Unvisited.remove(start);
+            ArrayList<Position> neighbors = GetNeighbors(rows, columns, start.getRowIndex(), start.getColumnIndex());
+            while (!neighbors.isEmpty()) {
+                randindex = (int) (Math.random() * (neighbors.size() - 1));
+                Position neighbor = neighbors.get(randindex);
                 Unvisited.remove(neighbor);
-                neighbors.add(neighbor);
+                /** first we check if a the cell is the goal so the path will exist without doubt */
+                if (neighbor.getRowIndex() == goal.getRowIndex() && neighbor.getColumnIndex() == goal.getColumnIndex()) {
+                    maze.set(neighbor.getRowIndex(), neighbor.getColumnIndex(), 0);
+                }
+                /** then if that neighbor can be a path we set him to the value 0 and add his neighbors to the arraylist */
+                else if (maze.GetPositionVal(neighbor.getRowIndex(), neighbor.getColumnIndex()) != 0 && CanBePath(neighbor, maze, rows, columns, connect)) {
+                    maze.set(neighbor.getRowIndex(), neighbor.getColumnIndex(), 0);
+                    neighbors.addAll(GetNeighbors(rows, columns, neighbor.getRowIndex(), neighbor.getColumnIndex()));
+                }
+                /** anyway, we remove the cell from the arraylist */
+                neighbors.remove(randindex);
+
+                /** Making sure all the maze have been reached */
+                if (neighbors.isEmpty() && !(Unvisited.isEmpty())) {
+                    connect = 2;
+                    neighbor = Unvisited.iterator().next();
+                    Unvisited.remove(neighbor);
+                    neighbors.add(neighbor);
+                }
             }
+            /** checking that the goal node is not surrounded by walls */
+            neighbors = GetNeighbors(rows, columns, goal.getRowIndex(), goal.getColumnIndex());
+            for (int i = 0; i < neighbors.size(); i++) {
+                if (maze.GetPositionVal(neighbors.get(i).getRowIndex(), neighbors.get(i).getColumnIndex()) == 0)
+                    return maze;
+            }
+            maze.set(neighbors.get(0).getRowIndex(), neighbors.get(0).getColumnIndex(), 0);
+            return maze;
         }
-        /** checking that the goal node is not surrounded by walls */
-        neighbors = GetNeighbors( rows, columns, goal.getRowIndex(), goal.getColumnIndex());
-        for (int i=0; i < neighbors.size(); i++){
-            if (maze.GetPositionVal(neighbors.get(i).getRowIndex(),neighbors.get(i).getColumnIndex()) == 0)
-                return maze;
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        maze.set(neighbors.get(0).getRowIndex(),neighbors.get(0).getColumnIndex(),0);
-        return maze;
+
     }
 
     /** Utility method to get a Position on one of the mazes walls randomly.
@@ -69,7 +76,7 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param columns - The mazes columns dimension
      * @return Position - a random Position on one of the mazes walls
      */
-    private Position RandomWall(int rows, int columns) throws Exception {
+    private Position RandomWall(int rows, int columns){
         int i,j;
         if(Math.random() > 0.5){
             i = (int) (Math.random() * (rows - 1));
@@ -86,7 +93,6 @@ public class MyMazeGenerator extends AMazeGenerator{
                 i = rows - 1;
         }
         return new Position(i,j);
-
     }
 
     /** Utility method that checks how many of a cells neighbors are paths to tell if that cell can be a path itself.
@@ -98,7 +104,7 @@ public class MyMazeGenerator extends AMazeGenerator{
      *                teared down between the start and goal Positions.
      * @return boolean True if a path can be created or False otherwise.
      */
-    private boolean CanBePath(Position pos, Maze maze , int rows, int columns, int connect) throws Exception {
+    private boolean CanBePath(Position pos, Maze maze , int rows, int columns, int connect){
         ArrayList<Position> neighbors = GetNeighbors(rows,  columns, pos.getRowIndex() ,pos.getColumnIndex());
         int counter = 0;
         for (Position neighbor: neighbors) {
@@ -117,7 +123,7 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param j The questioned Position's column index
      * @return ArrayList of Positions that are neighbors of the Position in question.
      */
-    private ArrayList<Position> GetNeighbors( int rows, int columns, int i, int j) throws Exception {
+    private ArrayList<Position> GetNeighbors( int rows, int columns, int i, int j){
         ArrayList<Position> neighbors = new ArrayList<Position>();
         /** Rows dimension neighbors.*/
         if (i == 0)

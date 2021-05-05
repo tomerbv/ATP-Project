@@ -1,7 +1,4 @@
 package algorithms.mazeGenerators;
-
-import java.util.ArrayList;
-
 import java.util.LinkedList;
 
 /**
@@ -63,6 +60,7 @@ public class Maze {
         }
 
         dim = dim + ThisDim[i[0]];
+        i[0]++;
         return dim;
 
     }
@@ -169,7 +167,7 @@ public class Maze {
      * @return a uncompressed byte array
      */
     public byte[] toByteArray() {
-        LinkedList<int> metanums = new LinkedList<int>();
+        LinkedList<Integer> metanums = new LinkedList<>();
         metanums.addAll(dimtobyte(this.getRows()));
         metanums.addAll(dimtobyte(this.getColumns()));
         metanums.addAll(dimtobyte(this.getStartPosition().getRowIndex()));
@@ -179,7 +177,7 @@ public class Maze {
 
         byte[] bytearray = new byte[(this.getRows() * this.getColumns()) + metanums.size()];
         for (int i = 0; i < metanums.size(); i++) {
-            bytearray[i] = (byte) metanums.get(i);
+            bytearray[i] = metanums.get(i).byteValue();
         }
         int place = metanums.size();
         for (int i = 0; i < this.getRows(); i++) {
@@ -195,8 +193,8 @@ public class Maze {
      * @param dim the dimension we want to convert to bytes
      * @return a bytearray of the decoded int
      */
-    private LinkedList<int> dimtobyte(int dim) {
-        LinkedList<int> numlist = new LinkedList<int>();
+    private LinkedList<Integer> dimtobyte(int dim) {
+        LinkedList<Integer> numlist = new LinkedList<>();
         if(dim > 255){
             int rest = 0;
             while(dim/255 > 255){
