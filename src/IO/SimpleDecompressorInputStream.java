@@ -49,4 +49,5 @@ public class SimpleDecompressorInputStream extends InputStream {
     public SimpleDecompressorInputStream(InputStream in) {
         this.in = in;
     }
+
 }

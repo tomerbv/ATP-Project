@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+import java.util.ArrayList;
+
 /**
  * Maze class holds 3 data members: the grid of integers and two Position types - starting and goal points.
  */
@@ -22,6 +24,17 @@ public class Maze {
         this.map = map;
     }
     public Maze(byte[] getinfo) throws Exception{
+        ArrayList<Integer> dimenions = new ArrayList<Integer>();
+
+        int columns;
+        int dim=0;
+        int counter = 0;
+        while(((int)getinfo[counter])<0){
+            dim = dim*255;
+            counter++;
+        }
+        dim = dim + getinfo[counter];
+        rows = dim
        this.map = new int[getinfo[0]][getinfo[1]];
        this.start = new Position(getinfo[2],getinfo[3]);
        this.goal = new Position(getinfo[4],getinfo[5]);
@@ -42,6 +55,7 @@ public class Maze {
      * @param column - The specified cell's column.
      * @param val - The value to set to that cell.
      */
+    public int CheckDimesons
     public void set(int row, int column, int val){
         this.map[row][column] = val;
     }
