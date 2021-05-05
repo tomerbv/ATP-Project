@@ -17,17 +17,30 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     @Override
     public void write(byte[] b) throws IOException {
-        for (int i = 0; i < 6; i++) {
-            out.write(b[i]);
+        int metacount = 0;
+        int i = 0;
+        while (metacount <6){
+            if(b[i]>0){
+                write(b[i]);
+                metacount++;
+                i++;
+
+            }
+            else{
+                write(b[i]);
+                i++;
+
+            }
         }
-        if(b[6]==1){
+
+        if(b[i]==1){
             write(0);
         }
         int count=1;
-        for (int i = 7; i <b.length ; i++) {
+        for (int j = i; j <b.length ; j++) {
 
 
-            if(b[i]==b[i-1]){
+            if(b[j]==b[j-1]){
                 if(count==255){
                     out.write(255);
                     out.write(0);
