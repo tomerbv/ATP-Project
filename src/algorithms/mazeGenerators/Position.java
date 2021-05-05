@@ -13,11 +13,18 @@ public class Position {
      * @param row the point's row index.
      * @param column the point's column index
      */
-    public Position(int row, int column) throws Exception {
-        if(row < 0 || column < 0)
-            throw new Exception("Invalid Dimension Size");
-        this.row = row;
-        this.column = column;
+    public Position(int row, int column){
+        try{
+            if(row < 0 || column < 0)
+                throw new Exception("Invalid Dimension Size");
+            this.row = row;
+            this.column = column;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     /** Row index getter

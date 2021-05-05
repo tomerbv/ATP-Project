@@ -2,6 +2,8 @@ package algorithms.mazeGenerators;
 
 import java.util.ArrayList;
 
+import java.util.LinkedList;
+
 /**
  * Maze class holds 3 data members: the grid of integers and two Position types - starting and goal points.
  */
@@ -15,15 +17,22 @@ public class Maze {
      * @param goal - Determines the goal position of the maze.
      * @param map - a 3 Dimension grid of integers representing the maze.
      */
-    public Maze(Position start ,Position goal, int[][] map) throws Exception {
-        if(start == null || goal == null || map == null){
-            throw new Exception("Null Arguments");
+    public Maze(Position start ,Position goal, int[][] map){
+        try{
+            if(start == null || goal == null || map == null){
+                throw new Exception("Null Arguments");
+            }
+            this.start = start;
+            this.goal = goal;
+            this.map = map;
         }
-        this.start = start;
-        this.goal = goal;
-        this.map = map;
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
-    public Maze(byte[] getinfo) throws Exception{
+
+    public Maze(byte[] getinfo){
         int[] Arraycounter = new int[1];
         int[] dimensions = new int[6];
         dimensions[0]=CheckDimesons(getinfo,Arraycounter);
@@ -43,16 +52,9 @@ public class Maze {
                 counter++;
             }
         }
-
-
-
     }
 
-    /** Grid setter by index.
-     * @param row - The specified cell's row.
-     * @param column - The specified cell's column.
-     * @param val - The value to set to that cell.
-     */
+
     public int CheckDimesons(byte[] ThisDim,int[] i) {
         int dim = 0;
         while(((int)ThisDim[i[0]])<0){
@@ -64,6 +66,11 @@ public class Maze {
         return dim;
 
     }
+    /** Grid setter by index.
+     * @param row - The specified cell's row.
+     * @param column - The specified cell's column.
+     * @param val - The value to set to that cell.
+     */
     public void set(int row, int column, int val){
         this.map[row][column] = val;
     }
@@ -156,27 +163,53 @@ public class Maze {
         else
             return("  ");
     }
+
+
+    /**
+     * @return a uncompressed byte array
+     */
     public byte[] toByteArray() {
-        byte[] bytearray = new byte[(this.getRows() * this.getColumns()) + 6];
-        bytearray[0] = (byte) this.getRows();
-        bytearray[1] = (byte) this.getColumns();
-        bytearray[2] = (byte) this.getStartPosition().row;
-        bytearray[3] = (byte) this.getStartPosition().column;
-        bytearray[4] = (byte) this.getGoalPosition().row;
-        bytearray[5] = (byte) this.getGoalPosition().column;
-        int place = 6;
+        LinkedList<int> metanums = new LinkedList<int>();
+        metanums.addAll(dimtobyte(this.getRows()));
+        metanums.addAll(dimtobyte(this.getColumns()));
+        metanums.addAll(dimtobyte(this.getStartPosition().getRowIndex()));
+        metanums.addAll(dimtobyte(this.getStartPosition().getColumnIndex()));
+        metanums.addAll(dimtobyte(this.getGoalPosition().getRowIndex()));
+        metanums.addAll(dimtobyte(this.getGoalPosition().getColumnIndex()));
+
+        byte[] bytearray = new byte[(this.getRows() * this.getColumns()) + metanums.size()];
+        for (int i = 0; i < metanums.size(); i++) {
+            bytearray[i] = (byte) metanums.get(i);
+        }
+        int place = metanums.size();
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
                 bytearray[place] = (byte) GetPositionVal(i, j);
                 place++;
-
             }
-
         }
         return bytearray;
     }
 
-
-
+    /**utility method to turn dimensions into byte or bytes
+     * @param dim the dimension we want to convert to bytes
+     * @return a bytearray of the decoded int
+     */
+    private LinkedList<int> dimtobyte(int dim) {
+        LinkedList<int> numlist = new LinkedList<int>();
+        if(dim > 255){
+            int rest = 0;
+            while(dim/255 > 255){
+                dim -= 65025;
+                numlist.add(0,-255);
+            }
+            numlist.add((int) dim/255);
+            rest = dim - (((int)(dim/255)) * 255);
+            numlist.add(rest);
+            return numlist;
+        }
+        numlist.add(dim);
+        return numlist;
+    }
 }
 
