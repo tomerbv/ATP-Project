@@ -12,7 +12,7 @@ public class MyCompressorOutputStream extends OutputStream {
 
     @Override
     public void write(int b) throws IOException {
-
+        out.write(b);
     }
 
     @Override
