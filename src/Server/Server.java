@@ -30,7 +30,7 @@ public class Server {
             serverSocket.setSoTimeout(listeningIntervalMS);
             //LOG.info("Starting server at port = " + port);
 
-            while (!stop) {
+
                 try {
                     Socket clientSocket = serverSocket.accept();
                    // LOG.info("Client accepted: " + clientSocket.toString());
@@ -50,7 +50,7 @@ public class Server {
                     e.printStackTrace();
                  //   LOG.debug("Socket timeout");
                 }
-            }
+
             serverSocket.close();
             //threadPool.shutdown(); // do not allow any new tasks into the thread pool (not doing anything to the current tasks and running threads)
             threadPool.shutdownNow(); // do not allow any new tasks into the thread pool, and also interrupts all running threads (do not terminate the threads, so if they do not handle interrupts properly, they could never stop...)

@@ -15,7 +15,7 @@ public class Client {
         this.strategy = strategy;
     }
 
-    public void start(){
+    public void communicateWithServer(){
         try(Socket serverSocket = new Socket(serverIP, serverPort)){
             System.out.println("connected to server - IP = " + serverIP + ", Port = " + serverPort);
             strategy.clientStrategy(serverSocket.getInputStream(), serverSocket.getOutputStream());
