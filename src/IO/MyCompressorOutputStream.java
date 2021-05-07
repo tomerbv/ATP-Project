@@ -32,15 +32,22 @@ public class MyCompressorOutputStream extends OutputStream {
 
             }
         }
-        int currbyte;
+        byte currbyte;
+        int j;
         while(i < b.length){
             currbyte = 0;
-            for (int j = 0; j < 8 && i < b.length; j++) {
-                currbyte = (currbyte << 1);
+            j = 0;
+            while(j < 8 && i < b.length) {
+                currbyte = (byte)(currbyte << 1);
                 if(b[i++] == 1)
                     currbyte += 1;
+                j++;
             }
-            write((byte) currbyte);
+            while(j < 8) {
+                currbyte = (byte) (currbyte << 1);
+                j++;
+            }
+            write(currbyte);
         }
 
     }

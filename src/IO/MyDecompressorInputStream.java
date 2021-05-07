@@ -31,11 +31,13 @@ public class MyDecompressorInputStream extends InputStream {
             }
         }
 
-        int CmprsNum;
+        byte CmprsNum;
         while (bCount < b.length) {
             CmprsNum = Compressed[CmprsCount++];
-            if (CmprsNum < 0)
+            if (CmprsNum < 0){
                 b[bCount++] = (byte) 1;
+                CmprsNum += 128;
+            }
             else
                 b[bCount++] = (byte) 0;
             for (int i = 1; i < 8 && bCount < b.length; i++) {

@@ -25,7 +25,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy{
 
 
             mycomp.write(toclientMaze.toByteArray());
-            toClient.writeObject();
+            //toClient.writeObject();
             toClient.flush();
             fromClient.close();
             toClient.close();
