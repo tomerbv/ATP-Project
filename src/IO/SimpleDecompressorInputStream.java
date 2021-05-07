@@ -14,31 +14,27 @@ public class SimpleDecompressorInputStream extends InputStream {
 
     @Override
     public int read(byte[] b) throws IOException {
+        byte[] Compressed = in.readAllBytes();
         int metacount = 0;
-        int place = 0;
+        int bCount = 0;
+        int CmprsCount = 0;
         while (metacount <6){
-            if(b[place]>0){
-                b[place]=(byte)in.read();
+            if(Compressed[CmprsCount]>0){
+                b[bCount++] = Compressed[CmprsCount++];
                 metacount++;
-                place++;
-
             }
             else{
-                b[place]=(byte)in.read();
-                place++;
-
+                b[bCount++] = Compressed[CmprsCount++];
             }
         }
         int num = 0;
-        int data;
-        int position = place;
-        while((data = in.read())!=-1){
-                for (int i = 0; i < data ; i++) {
-                    b[position] = (byte)num;
-                   // System.out.println(((int) b[position]));
-                    position++;
-                }
-                num=1-num;
+        int CmprsNum;
+        while(CmprsCount < Compressed.length){
+            CmprsNum = Compressed[CmprsCount++];
+            for (int i = 0; i < CmprsNum ; i++) {
+                b[bCount++] = (byte) num;
+            }
+            num = 1-num;
             }
         return 0;
     }

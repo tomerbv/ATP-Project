@@ -33,13 +33,12 @@ public class SimpleCompressorOutputStream extends OutputStream {
             }
         }
 
-        if(b[i]==1){
+        if(b[i++]==1){
             write(0);
         }
+
         int count=1;
         for (int j = i; j <b.length ; j++) {
-
-
             if(b[j]==b[j-1]){
                 if(count==255){
                     out.write(255);
@@ -47,14 +46,13 @@ public class SimpleCompressorOutputStream extends OutputStream {
                     count=1;
                 }
                 count++;
-
             }
             else{
                 out.write(count);
                 count=1;
             }
-
         }
+        out.write(count);
         out.close();
 
     }
