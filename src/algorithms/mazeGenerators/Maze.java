@@ -1,10 +1,11 @@
 package algorithms.mazeGenerators;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * Maze class holds 3 data members: the grid of integers and two Position types - starting and goal points.
  */
-public class Maze {
+public class Maze implements Serializable {
     Position start;
     Position goal;
     int[][] map;

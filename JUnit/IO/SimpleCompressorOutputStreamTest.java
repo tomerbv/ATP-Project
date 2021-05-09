@@ -18,13 +18,13 @@ class SimpleCompressorOutputStreamTest {
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
         Maze maze = null; //Generate new maze
         try {
-            maze = mazeGenerator.generate(10, 10);
+            maze = mazeGenerator.generate(200, 5);
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
 // save maze to a file
-            maze.superprint();
+            maze.print();
             System.out.println("\n****************************\n");
             OutputStream out = new SimpleCompressorOutputStream(new
                     FileOutputStream(mazeFileName));
@@ -47,7 +47,7 @@ class SimpleCompressorOutputStreamTest {
             e.printStackTrace();
         }
         Maze loadedMaze = new Maze(savedMazeBytes);
-        loadedMaze.superprint();
+        loadedMaze.print();
         boolean areMazesEquals =
                 Arrays.equals(loadedMaze.toByteArray(),maze.toByteArray());
         System.out.println(String.format("Mazes equal: %s",areMazesEquals));

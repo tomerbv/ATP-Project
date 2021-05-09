@@ -1,11 +1,13 @@
 package algorithms.search;
 
+import java.io.Serializable;
+
 /**Astate is abstract class that represents the situation
  *  the searching algorithm is currently in
  * field1: cost - the cost to reach the certain state
  * field2: camefrom- the state that the certain state came from
  */
-public abstract class AState implements Comparable<AState>{
+public abstract class AState implements Comparable<AState>, Serializable {
 
     double cost;
     AState CameFrom;

@@ -1,11 +1,12 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /** Position class represents a cell in the grid of the maze,
  *  Holds 2 data members int row and int column for a specific cell.
  */
-public class Position {
+public class Position implements Serializable {
     int row;
     int column;
 

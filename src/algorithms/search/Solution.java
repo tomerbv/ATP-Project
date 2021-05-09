@@ -1,5 +1,6 @@
 package algorithms.search;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -7,7 +8,7 @@ import java.util.Stack;
  * a class that represents the solution of the maze.
  * Goal is the Astate that we reached.
  */
-public class Solution {
+public class Solution implements Serializable {
     AState Goal;
 
     /** Constructor for a non existing Solution. */

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.sql.SQLOutput;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,39 +26,40 @@ public class Server {
     }
 
     public void start(){
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            serverSocket.setSoTimeout(listeningIntervalMS);
-            //LOG.info("Starting server at port = " + port);
+        new Thread(() -> {
+            try {
+                ServerSocket serverSocket = new ServerSocket(port);
+                serverSocket.setSoTimeout(listeningIntervalMS);
+                System.out.println("Starting server at port = " + port);
 
+                while(!stop) {
+                    try {
+                        Socket clientSocket = serverSocket.accept();
+                        System.out.println("Client accepted: " + clientSocket.toString());
 
-                try {
-                    Socket clientSocket = serverSocket.accept();
-                   // LOG.info("Client accepted: " + clientSocket.toString());
+                        // Insert the new task into the thread pool:
+                        threadPool.submit(() -> {
+                            handleClient(clientSocket);
+                        });
 
-                    // Insert the new task into the thread pool:
-                    threadPool.submit(() -> {
-                        handleClient(clientSocket);
-                    });
+                        // From previous lab:
+                        // This thread will handle the new Client
+                        //new Thread(() -> {
+                        //    handleClient(clientSocket);
+                        //}).start();
 
-                    // From previous lab:
-                    // This thread will handle the new Client
-                    //new Thread(() -> {
-                    //    handleClient(clientSocket);
-                    //}).start();
-
-                } catch (SocketTimeoutException e){
-                    e.printStackTrace();
-                 //   LOG.debug("Socket timeout");
+                    } catch (SocketTimeoutException e) {
+                        System.out.println("Socket Timeout");
+                        //   LOG.debug("Socket timeout");
+                    }
                 }
-
-            serverSocket.close();
-            //threadPool.shutdown(); // do not allow any new tasks into the thread pool (not doing anything to the current tasks and running threads)
-            threadPool.shutdownNow(); // do not allow any new tasks into the thread pool, and also interrupts all running threads (do not terminate the threads, so if they do not handle interrupts properly, they could never stop...)
-        } catch (IOException e) {
-            e.printStackTrace();
-           // LOG.error("IOException", e);
-        }
+                serverSocket.close();
+                //threadPool.shutdown(); // do not allow any new tasks into the thread pool (not doing anything to the current tasks and running threads)
+                threadPool.shutdownNow(); // do not allow any new tasks into the thread pool, and also interrupts all running threads (do not terminate the threads, so if they do not handle interrupts properly, they could never stop...)
+            } catch (IOException e) {
+                e.printStackTrace();
+               // LOG.error("IOException", e);
+            }}).start();
     }
 
     private void handleClient(Socket clientSocket) {
