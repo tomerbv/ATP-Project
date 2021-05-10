@@ -1,6 +1,7 @@
 package Server;
 
 import algorithms.mazeGenerators.AMazeGenerator;
+import algorithms.mazeGenerators.EmptyMazeGenerator;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.SimpleMazeGenerator;
 import algorithms.search.ASearchingAlgorithm;
@@ -8,86 +9,76 @@ import algorithms.search.BestFirstSearch;
 import algorithms.search.BreadthFirstSearch;
 import algorithms.search.DepthFirstSearch;
 
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashSet;
+import java.io.*;
+import java.util.HashMap;
 import java.util.Properties;
 
-static public class Configurations {
-    static private Properties properties = new Properties();;
-    static private InputStream input = null;
-    static private HashSet<String, ASearchingAlgorithm> mazeSearchingAlgorithmMap;
-    static private HashSet<String, AMazeGenerator> mazeGeneratingAlgorithmMap;
+public class Configurations {
+    private static boolean instance = false;
+    static private Properties properties;
+    static private InputStream configfile;
+    static private HashMap<String, AMazeGenerator> Generators;
+    static private HashMap<String, ASearchingAlgorithm> Searchers;
 
-    public static void setProp(int size, String mazeGeneratingAlgorithm, String mazeSearchingAlgorithm) {
-        try {
+    private static void Initialize(){
+        try{
+            Properties properties = new Properties();
+            InputStream configfile = new FileInputStream("resource/config.properties");
+            Generators = new HashMap<>();
+            Searchers = new HashMap<>();
+
+            Generators.put("EmptyMazeGenerator", new EmptyMazeGenerator());
+            Generators.put("SimpleMazeGenerator", new SimpleMazeGenerator());
+            Generators.put("MyMazeGenerator", new MyMazeGenerator());
+
+            Searchers.put("BestFirstSearch", new BestFirstSearch());
+            Searchers.put("BreadthFirstSearch", new BreadthFirstSearch());
+            Searchers.put("DepthFirstSearch", new DepthFirstSearch());
+
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            instance = true;
+        }
+
+    }
+    public static void setProp(int size, String Generator, String Searcher) {
+        if (!instance)
+            Initialize();
+        try{
             OutputStream output = new FileOutputStream("resource/config.properties");
             Properties prop = new Properties();
-            prop.setProperty("threadPoolSize", Integer.toString(size));
-            prop.setProperty("mazeGeneratingAlgorithm", mazeGeneratingAlgorithm);
-            prop.setProperty("mazeSearchingAlgorithm", mazeSearchingAlgorithm);
+            prop.setProperty("threadPoolSize", String.valueOf(size));
+            prop.setProperty("mazeGeneratingAlgorithm", Generator);
+            prop.setProperty("mazeSearchingAlgorithm", Searcher);
             prop.store(output, null);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (output != null) {
-                try {
-                    output.close();
-                }
-                catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+            output.close();
         }
-    }
-
-    private static void initializeSearchingAlgorithmMap(){
-        mazeSearchingAlgorithmMap = new HashMap<>();
-        mazeSearchingAlgorithmMap.put("BreadthFirstSearch", new BreadthFirstSearch());
-        mazeSearchingAlgorithmMap.put("BestFirstSearch", new BestFirstSearch());
-        mazeSearchingAlgorithmMap.put("DepthFirstSearch", new DepthFirstSearch());
-    }
-
-    private static void initializeGeneratingAlgorithmMap(){
-        mazeGeneratingAlgorithmMap = new HashMap<>();
-        mazeGeneratingAlgorithmMap.put("MyMazeGenerator", new MyMazeGenerator());
-        mazeGeneratingAlgorithmMap.put("SimpleMazeGenerator", new SimpleMazeGenerator());
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static int getThreadPoolSize() {
-        try {
-            if (Integer.valueOf(prop.getProperty("threadPoolSize")) > 0)
-                return Integer.valueOf(prop.getProperty("threadPoolSize"));
-            return 1;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return 1;
+        if (!instance)
+            Initialize();
+        return Integer.valueOf(properties.getProperty("threadPoolSize"));
+    }
+
+    public static AMazeGenerator getMazeGeneratingAlgorithm() {
+        if (!instance)
+            Initialize();
+        String Generator = properties.getProperty("mazeGeneratingAlgorithm");
+        return Generators.get(Generator);
     }
 
     public static ASearchingAlgorithm getMazeSearchingAlgorithm(){
-        try {
-            String mazeSearchingAlgorithmName = prop.getProperty("mazeSearchingAlgorithm");
-            if(mazeSearchingAlgorithmMap.containsKey(mazeSearchingAlgorithmName))
-                return (ASearchingAlgorithm)mazeSearchingAlgorithmMap.get(mazeSearchingAlgorithmName).cloneMe();
-            return new BreadthFirstSearch(); // default...
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return new BreadthFirstSearch(); // default...
-    }
-
-    public static AMazeGenerator getMazeGeneratingAlgorithm(){
-        try {
-            String mazeGeneratingAlgorithmName = prop.getProperty("mazeGeneratingAlgorithm");
-            if(mazeGeneratingAlgorithmMap.containsKey(mazeGeneratingAlgorithmName))
-                return (AMazeGenerator) mazeGeneratingAlgorithmMap.get(mazeGeneratingAlgorithmName).cloneMe();
-            return new MyMazeGenerator(); // default...
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return new MyMazeGenerator(); // default...
+        if (!instance)
+            Initialize();
+        String Searcher = properties.getProperty("mazeSearchingAlgorithm");
+        return  Searchers.get(Searcher);
     }
 
 
