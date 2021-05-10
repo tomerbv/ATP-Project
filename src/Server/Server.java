@@ -42,12 +42,6 @@ public class Server {
                             handleClient(clientSocket);
                         });
 
-                        // From previous lab:
-                        // This thread will handle the new Client
-                        //new Thread(() -> {
-                        //    handleClient(clientSocket);
-                        //}).start();
-
                     } catch (SocketTimeoutException e) {
                         System.out.println("Socket Timeout");
                         //   LOG.debug("Socket timeout");

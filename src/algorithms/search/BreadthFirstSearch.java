@@ -31,33 +31,39 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
      * @return an object of type solution with the goal state
      */
     @Override
-    public Solution solve(ISearchable domain) throws Exception {
-        if (domain == null)
-            return null;
-        this.NodesEvaluated = 0;
-        PriorityQueue<AState> Open = new PriorityQueue<AState>();
-        HashSet<AState> Closed = new HashSet<AState>();
-        ArrayList<AState> Successors = new ArrayList<AState>();
-        Open.add(domain.getStartState());
-        AState currNode;
-        while (!Open.isEmpty()) {
-            currNode = Open.poll();
-            this.NodesEvaluated ++;
-            if (currNode.equals(domain.getGoalState()))
-                return new Solution(currNode);
-            Successors = domain.getAllSuccessors(currNode);
-            for (AState successor : Successors) {
-                if (!Closed.contains(successor)) {
-                    if (Open.contains(successor)) {
-                        UpdateIfShorter( Open,successor, currNode);
-                    }
-                    else{
-                        AddSuccessor(currNode, successor);
-                        Open.add(successor);
+    public Solution solve(ISearchable domain){
+        try{
+            if (domain == null)
+                return null;
+            this.NodesEvaluated = 0;
+            PriorityQueue<AState> Open = new PriorityQueue<AState>();
+            HashSet<AState> Closed = new HashSet<AState>();
+            ArrayList<AState> Successors = new ArrayList<AState>();
+            Open.add(domain.getStartState());
+            AState currNode;
+            while (!Open.isEmpty()) {
+                currNode = Open.poll();
+                this.NodesEvaluated ++;
+                if (currNode.equals(domain.getGoalState()))
+                    return new Solution(currNode);
+                Successors = domain.getAllSuccessors(currNode);
+                for (AState successor : Successors) {
+                    if (!Closed.contains(successor)) {
+                        if (Open.contains(successor)) {
+                            UpdateIfShorter( Open,successor, currNode);
+                        }
+                        else{
+                            AddSuccessor(currNode, successor);
+                            Open.add(successor);
+                        }
                     }
                 }
+                Closed.add(currNode);
             }
-            Closed.add(currNode);
+            return null;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

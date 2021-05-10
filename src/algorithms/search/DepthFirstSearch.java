@@ -30,40 +30,45 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
      * @return an object of type solution with the goal state
      */
     @Override
-    public Solution solve(ISearchable domain) throws Exception {
-        if (domain == null)
-            return null;
-        this.NodesEvaluated = 0;
-        Stack<AState> Open = new Stack<AState>();
-        HashSet<AState> Closed = new HashSet<AState>();
-        ArrayList<AState> Successors;
-        Open.push(domain.getStartState());
-        AState currNode;
-        while (!Open.isEmpty()) {
-            currNode = Open.pop();
-            Successors = domain.getAllSuccessors(currNode);
-            for (int i = 0; i < Successors.size(); i++){
-                if (currNode.equals(domain.getGoalState())) {
-                    this.NodesEvaluated++;
-                    return new Solution(currNode);
-                }
-                AState successor = Successors.get(i);
-                if (!Closed.contains(successor)) {
-                    if (!Open.contains(successor)) {
-                        this.NodesEvaluated ++;
-                        successor.setCameFrom(currNode);
-                        successor.setCost(currNode.getCost() + 1);
-                        Open.push(currNode);
-                        Open.push(successor);
-                        currNode = successor;
-                        Successors = domain.getAllSuccessors(currNode);
-                        i = 0;
+    public Solution solve(ISearchable domain){
+        try{
+            if (domain == null)
+                return null;
+            this.NodesEvaluated = 0;
+            Stack<AState> Open = new Stack<AState>();
+            HashSet<AState> Closed = new HashSet<AState>();
+            ArrayList<AState> Successors;
+            Open.push(domain.getStartState());
+            AState currNode;
+            while (!Open.isEmpty()) {
+                currNode = Open.pop();
+                Successors = domain.getAllSuccessors(currNode);
+                for (int i = 0; i < Successors.size(); i++){
+                    if (currNode.equals(domain.getGoalState())) {
+                        this.NodesEvaluated++;
+                        return new Solution(currNode);
+                    }
+                    AState successor = Successors.get(i);
+                    if (!Closed.contains(successor)) {
+                        if (!Open.contains(successor)) {
+                            this.NodesEvaluated ++;
+                            successor.setCameFrom(currNode);
+                            successor.setCost(currNode.getCost() + 1);
+                            Open.push(currNode);
+                            Open.push(successor);
+                            currNode = successor;
+                            Successors = domain.getAllSuccessors(currNode);
+                            i = 0;
+                        }
                     }
                 }
+                Closed.add(currNode);
             }
-            Closed.add(currNode);
+            return null;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
-
     }
 }

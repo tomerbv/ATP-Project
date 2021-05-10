@@ -1,4 +1,4 @@
 package Server;
 
-public class Configurations {
+public static class Configurations {
 }
