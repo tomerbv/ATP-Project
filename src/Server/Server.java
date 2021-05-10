@@ -12,16 +12,15 @@ public class Server {
     private int port;
     private int listeningIntervalMS;
     private IServerStrategy strategy;
+    private ExecutorService threadPool;
     private volatile boolean stop;
-   // private final Logger LOG = LogManager.getLogger(); //Log4j2
-    private ExecutorService threadPool; // Thread pool
 
 
     public Server(int port, int listeningIntervalMS, IServerStrategy strategy) {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        // initialize a new fixed thread pool with 2 threads:
+
         this.threadPool = Executors.newFixedThreadPool(2);
     }
 

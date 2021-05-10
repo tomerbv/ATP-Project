@@ -15,7 +15,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
     private String DirPath;
 
     public ServerStrategySolveSearchProblem() {
-        this.Searcher = Server.Configurations.getMazeSearchingAlgorithm();
+        this.Searcher = Configurations.getMazeSearchingAlgorithm();
         this.DirPath = System.getProperty("java.io.tmpdir");
     }
 
@@ -79,7 +79,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         }
         if(solution == null){
             ISearchable iSearchable = new SearchableMaze(clientmaze);
-            ASearchingAlgorithm usedAlgorithm = (ASearchingAlgorithm)Searcher.cloneMe();
+            ASearchingAlgorithm usedAlgorithm = (ASearchingAlgorithm)Searcher;
             solution = usedAlgorithm.solve(iSearchable);
             saveSolution(solution, clientmaze, i);
         }
