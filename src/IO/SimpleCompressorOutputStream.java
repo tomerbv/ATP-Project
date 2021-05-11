@@ -3,6 +3,9 @@ package IO;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * the class represents a decorator to compress the algorithm to compress the data that will be wriiten
+ */
 public class SimpleCompressorOutputStream extends OutputStream {
     OutputStream out;
 
@@ -15,6 +18,12 @@ public class SimpleCompressorOutputStream extends OutputStream {
         out.write(b);
     }
 
+    /**
+     * @param b the array that we will compress and write
+     * the method first compresses all the meta data then counts the number of appereances in a row of the same value then writes it ,
+     * starting with 0's then 1's
+     * @throws IOException
+     */
     @Override
     public void write(byte[] b) throws IOException {
         int metacount = 0;

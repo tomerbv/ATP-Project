@@ -13,17 +13,52 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Properties;
 
+/**
+ * the class that we use to retrieve the users data that he wants us to use, this class is implemented using the singleton desigh
+ * instance - the status of the singelton class
+ * configfile - the configuration file we retrieve data from
+ * properties - an object of type propery that we store the properties of the user
+ * Generators - a hashmap that contains the two options of generators we implemented
+ * Searchers - a hashmap that contains the three options of searchers we implemeted
+ */
 public class Configurations {
-    private static boolean instance = false;
-    static private Properties properties;
-    static private InputStream configfile;
+    private static Configurations instance = null;
+    static private Properties properties = new Properties();
+    static private InputStream configfile = null;
     static private HashMap<String, AMazeGenerator> Generators;
     static private HashMap<String, ASearchingAlgorithm> Searchers;
 
+    /**
+     * when initialized the static class reads the data from the configuration file
+     */
+    public Configurations() {
+        try {
+            configfile = new FileInputStream("resources/config.properties");
+            properties.load(configfile);
+            Initialize();
+            setProp(2, "MyMazeGenerator", "DepthFirstSearch");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public static Configurations getInstance(){
+        if (Configurations.instance == null){
+            Configurations.instance = new Configurations();
+        }
+        return Configurations.instance;
+    }
+
+    /**
+     * the method intializes all data members
+     */
     private static void Initialize(){
-        try{
-            Properties properties = new Properties();
-            InputStream configfile = new FileInputStream("resource/config.properties");
+      //  try{
+           // Properties properties = new Properties();
+           // InputStream configfile = new FileInputStream("resources/config.properties");
             Generators = new HashMap<>();
             Searchers = new HashMap<>();
 
@@ -35,20 +70,12 @@ public class Configurations {
             Searchers.put("BreadthFirstSearch", new BreadthFirstSearch());
             Searchers.put("DepthFirstSearch", new DepthFirstSearch());
 
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        finally {
-            instance = true;
-        }
 
     }
     public static void setProp(int size, String Generator, String Searcher) {
-        if (!instance)
-            Initialize();
+
         try{
-            OutputStream output = new FileOutputStream("resource/config.properties");
+            OutputStream output = new FileOutputStream("resources/config.properties");
             Properties prop = new Properties();
             prop.setProperty("threadPoolSize", String.valueOf(size));
             prop.setProperty("mazeGeneratingAlgorithm", Generator);
@@ -61,22 +88,20 @@ public class Configurations {
         }
     }
 
+    /**
+     * this are all getter functions to retrieve the data from the file
+     */
     public static int getThreadPoolSize() {
-        if (!instance)
-            Initialize();
+
         return Integer.valueOf(properties.getProperty("threadPoolSize"));
     }
 
     public static AMazeGenerator getMazeGeneratingAlgorithm() {
-        if (!instance)
-            Initialize();
         String Generator = properties.getProperty("mazeGeneratingAlgorithm");
         return Generators.get(Generator);
     }
 
     public static ASearchingAlgorithm getMazeSearchingAlgorithm(){
-        if (!instance)
-            Initialize();
         String Searcher = properties.getProperty("mazeSearchingAlgorithm");
         return  Searchers.get(Searcher);
     }

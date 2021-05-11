@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
+/**
+ * the client class as shown in the practices
+ */
 public class Client {
     private InetAddress serverIP;
     private int serverPort;

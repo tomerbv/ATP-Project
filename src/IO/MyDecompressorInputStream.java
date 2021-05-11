@@ -3,6 +3,9 @@ package IO;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * a class to implement decompressing the compressed byte maze in our way
+ */
 public class MyDecompressorInputStream extends InputStream {
     InputStream in;
 
@@ -15,6 +18,12 @@ public class MyDecompressorInputStream extends InputStream {
         return in.read();
     }
 
+    /**
+     * @param b same as SimpleDecompresser
+     * @return same as SimpleDecompresser
+     * in this method we implement the read method with the opposite algorithm of MyCompresser
+     * @throws IOException
+     */
     @Override
     public int read(byte[] b) throws IOException {
         byte[] Compressed = in.readAllBytes();

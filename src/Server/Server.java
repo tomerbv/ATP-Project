@@ -7,6 +7,9 @@ import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * the server class that is implemented very similar as in the pratics
+ */
 public class Server {
     private int port;
     private int listeningIntervalMS;
@@ -15,29 +18,40 @@ public class Server {
     private volatile boolean stop;
 
 
+    /**
+     * @param port - the port we are connecting to
+     * @param listeningIntervalMS - time we will wait for a connection
+     * @param strategy- the strategy that we will execut
+     * threadpool - a threadpool that its size will be set by the input in the configurations file
+     */
     public Server(int port, int listeningIntervalMS, IServerStrategy strategy) {
+        Configurations config = Configurations.getInstance();
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        this.threadPool = Executors.newFixedThreadPool(Configurations.getThreadPoolSize());
+        this.threadPool = Executors.newFixedThreadPool(config.getThreadPoolSize());
     }
 
+    /**
+     * same as in the practices
+     */
     public void start(){
         new Thread(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(port);
                 serverSocket.setSoTimeout(listeningIntervalMS);
-                System.out.println("Starting server at port = " + port);
+                //System.out.println("Starting server at port = " + port);
 
                 while(!stop) {
                     try {
                         Socket clientSocket = serverSocket.accept();
-                        System.out.println("Client accepted: " + clientSocket.toString());
+                     //   System.out.println("Client accepted: " + clientSocket.toString());
                         threadPool.submit(() -> {
                             handleClient(clientSocket);
                         });
 
                     } catch (SocketTimeoutException e) {
+
                         System.out.println("Socket Timeout");
                     }
                 }

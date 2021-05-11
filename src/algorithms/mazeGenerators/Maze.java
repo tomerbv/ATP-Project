@@ -40,10 +40,12 @@ public class Maze implements Serializable {
         dimensions[4]=CheckDimesons(getinfo,Arraycounter);
         dimensions[5]=CheckDimesons(getinfo,Arraycounter);
 
+
         int counter = Arraycounter[0];
         this.map = new int[dimensions[0]][dimensions[1]];
         this.start = new Position(dimensions[2],dimensions[3]);
         this.goal = new Position(dimensions[4],dimensions[5]);
+        //System.out.println("built dimensions now lets fill the maze");
         for (int i = 0; i < dimensions[0]; i++) {
             for (int j = 0; j < dimensions[1]; j++) {
                 this.map[i][j] = getinfo[counter];

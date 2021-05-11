@@ -9,7 +9,7 @@ public interface IMazeGenerator {
      * @param columns - Determines number of columns for the created maze
      * @return Maze - The maze generated
      */
-    Maze generate(int rows, int columns) throws Exception;
+    Maze generate(int rows, int columns) ;
 
     /**
      * @param rows Number of rows for the generated maze we measure

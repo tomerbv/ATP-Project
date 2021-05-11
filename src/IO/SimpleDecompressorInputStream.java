@@ -3,6 +3,9 @@ package IO;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * a class to implement decompressing the compressed byte maze the Simple way
+ */
 public class SimpleDecompressorInputStream extends InputStream {
     InputStream in;
 
@@ -12,6 +15,13 @@ public class SimpleDecompressorInputStream extends InputStream {
         return in.read();
     }
 
+    /**
+     * @param b the byte array that we will write to
+     * @return integer just for the return statement
+     * the function writes to b the data using the simple algorith decompression
+     * first we decomporess the metadata then we check each value and fill b the number of times of the value in the order of 0 then 1
+     * @throws IOException
+     */
     @Override
     public int read(byte[] b) throws IOException {
         byte[] Compressed = in.readAllBytes();
