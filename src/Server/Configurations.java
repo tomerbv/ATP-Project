@@ -69,7 +69,7 @@ public class Configurations {
             Searchers.put("BestFirstSearch", new BestFirstSearch());
             Searchers.put("BreadthFirstSearch", new BreadthFirstSearch());
             Searchers.put("DepthFirstSearch", new DepthFirstSearch());
-
+            setProp(4, "MyMazeGenerator", "BestFirstSearch");
 
     }
     public static void setProp(int size, String Generator, String Searcher) {

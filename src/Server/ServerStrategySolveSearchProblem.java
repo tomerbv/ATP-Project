@@ -78,7 +78,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         int goalcol = clientmaze.getGoalPosition().getColumnIndex();
         int i = 0;
         Solution solution = null;
-        String FilePath = DirPath + "Maze:R" + row + ",C" + col + ",SR" + startrow + ",SC" + startcol + ",GR" + goalrow + ",GC" + goalcol + "-num:";
+        String FilePath = DirPath + "MazeR" + row + ",C" + col + ",SR" + startrow + ",SC" + startcol + ",GR" + goalrow + ",GC" + goalcol + "-num";
         File file = new File(FilePath + i);
         while(file.exists())
         {
@@ -90,7 +90,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
                 if(Arrays.equals(clientmazetobyte, decompressedtobytes))
                 {
                     try {
-                        ObjectInputStream input = new ObjectInputStream(new FileInputStream(DirPath +  "Solution:R" + row + ",C" + col + ",SR" + startrow + ",SC" + startcol + ",GR" + goalrow + ",GC" + goalcol + "-num:" + i));
+                        ObjectInputStream input = new ObjectInputStream(new FileInputStream(DirPath +  "SolutionR" + row + ",C" + col + ",SR" + startrow + ",SC" + startcol + ",GR" + goalrow + ",GC" + goalcol + "-num" + i));
                         return (Solution) input.readObject();
                     }
                     catch (Exception e) {
@@ -132,9 +132,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         int goalrow = maze.getGoalPosition().getRowIndex();
         int goalcol = maze.getGoalPosition().getColumnIndex();
 
-        String fileName = "R" + row + ",C" + col + ",SR" + startrow + ",SC" + startcol + ",GR" + goalrow + ",GC" + goalcol + "-num:" + i;
+        String fileName = "R" + row + ",C" + col + ",SR" + startrow + ",SC" + startcol + ",GR" + goalrow + ",GC" + goalcol + "-num" + i;
         try {
-            File MazeFile = new File(DirPath +"Maze:" + fileName);
+            File MazeFile = new File(DirPath +"Maze" + fileName);
             OutputStream out = new MyCompressorOutputStream(new FileOutputStream(MazeFile));
             out.write(maze.toByteArray());
             out.flush();
@@ -143,7 +143,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             System.out.println("maze not saved");
             e.printStackTrace();        }
         try {
-            File SolutionFile = new File(DirPath  + "Solution:" + fileName);
+            File SolutionFile = new File(DirPath  + "Solution" + fileName);
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(SolutionFile));
             out.writeObject(solution);
             out.flush();

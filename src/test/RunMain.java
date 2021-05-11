@@ -93,7 +93,6 @@ public class RunMain {
         try {
 
             Test_CompressDecompressMaze();
-            System.out.println("reachec here");
             Test_CommunicateWithServers();
         }
         catch (Exception e)
@@ -153,7 +152,7 @@ public class RunMain {
         Port_ServerSearchProblemSolver = getRandomNumber(6001, 7000);
         Server mazeGeneratingServer = new Server(Port_ServerMazeGenerating, 1000, new ServerStrategyGenerateMaze());
         Server solveSearchProblemServer = new Server(Port_ServerSearchProblemSolver, 1000, new ServerStrategySolveSearchProblem());
-        System.out.println("reachec communicate");
+
         //Starting  servers
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();

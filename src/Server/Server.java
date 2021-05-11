@@ -40,19 +40,19 @@ public class Server {
             try {
                 ServerSocket serverSocket = new ServerSocket(port);
                 serverSocket.setSoTimeout(listeningIntervalMS);
-                //System.out.println("Starting server at port = " + port);
+
 
                 while(!stop) {
                     try {
                         Socket clientSocket = serverSocket.accept();
-                     //   System.out.println("Client accepted: " + clientSocket.toString());
+
                         threadPool.submit(() -> {
                             handleClient(clientSocket);
                         });
 
                     } catch (SocketTimeoutException e) {
 
-                        System.out.println("Socket Timeout");
+                       // System.out.println("Socket Timeout");
                     }
                 }
                 serverSocket.close();
