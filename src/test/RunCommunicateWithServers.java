@@ -55,7 +55,7 @@ public class RunCommunicateWithServers {
                     is.read(decompressedMaze); //Fill decompressedMaze25 | P a g e
                     //with bytes
                     Maze maze = new Maze(decompressedMaze);
-                    maze.superprint();
+                    maze.print();
                 }
                 catch (Exception e) {
                     e.printStackTrace();
