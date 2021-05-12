@@ -30,6 +30,10 @@ public class Maze implements Serializable {
 
     }
 
+    /**
+     * @param getinfo the byte array with the data we need to build a maze
+     *  a constructor that recieves a byte array with all dimensions and content needed to build a maze.
+     */
     public Maze(byte[] getinfo){
         int[] Arraycounter = new int[1];
         int[] dimensions = new int[6];

@@ -25,7 +25,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy{
      *
      */
     @Override
-    public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
+    public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
             if(inFromClient != null && outToClient != null){
                 ObjectOutputStream toClient = new ObjectOutputStream(outToClient);

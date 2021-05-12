@@ -36,7 +36,7 @@ public class Configurations {
             configfile = new FileInputStream("resources/config.properties");
             properties.load(configfile);
             Initialize();
-            setProp(2, "MyMazeGenerator", "DepthFirstSearch");
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,7 +44,10 @@ public class Configurations {
     }
 
 
-
+    /**
+     * @return getInstance method that returns the static class if it has already been initialized , and if not initializeds a new one
+     * and returns it
+     */
     public static Configurations getInstance(){
         if (Configurations.instance == null){
             Configurations.instance = new Configurations();
@@ -69,7 +72,7 @@ public class Configurations {
             Searchers.put("BestFirstSearch", new BestFirstSearch());
             Searchers.put("BreadthFirstSearch", new BreadthFirstSearch());
             Searchers.put("DepthFirstSearch", new DepthFirstSearch());
-            setProp(4, "MyMazeGenerator", "BestFirstSearch");
+
 
     }
     public static void setProp(int size, String Generator, String Searcher) {

@@ -38,7 +38,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
      * check if we have solved this maze and returns it if we have ,if not solves it saves it and returns it
      */
     @Override
-    public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
+    public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
@@ -91,7 +91,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
                 {
                     try {
                         ObjectInputStream input = new ObjectInputStream(new FileInputStream(DirPath +  "SolutionR" + row + ",C" + col + ",SR" + startrow + ",SC" + startcol + ",GR" + goalrow + ",GC" + goalcol + "-num" + i));
-                        return (Solution) input.readObject();
+                        solution = (Solution) input.readObject();
+                        break;
+
                     }
                     catch (Exception e) {
                         e.printStackTrace();                    }

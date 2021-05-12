@@ -30,6 +30,7 @@ public class Server {
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
         this.threadPool = Executors.newFixedThreadPool(config.getThreadPoolSize());
+
     }
 
     /**
@@ -65,7 +66,7 @@ public class Server {
 
     private void handleClient(Socket clientSocket) {
         try {
-            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.close();
         }
         catch (IOException e){
