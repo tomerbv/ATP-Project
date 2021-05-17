@@ -50,7 +50,8 @@ class MyCompressorOutputStreamTest {
                     System.out.println("Failed");
                     loadedMaze.superprint();
                 }
-                System.out.println(String.format("Mazes equal: %s", areMazesEquals));
+                if(!areMazesEquals)
+                    System.out.println(String.format("Mazes equal: %s", areMazesEquals));
             }
         }
     }

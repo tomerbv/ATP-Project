@@ -62,15 +62,65 @@ public class Maze implements Serializable {
     public int CheckDimesons(byte[] ThisDim,int[] i) {
         int dim = 0;
         while(((int)ThisDim[i[0]])<0){
-            dim += ThisDim[i[0]]*(-255);
+            dim += ThisDim[i[0]]*(-127);
             i[0]++;
         }
 
         dim = dim + ThisDim[i[0]];
         i[0]++;
         return dim;
-
     }
+
+    /**
+     * @return a uncompressed byte array
+     */
+    public byte[] toByteArray() {
+        LinkedList<Integer> metanums = new LinkedList<>();
+        metanums.addAll(dimtobyte(this.getRows()));
+        metanums.addAll(dimtobyte(this.getColumns()));
+        metanums.addAll(dimtobyte(this.getStartPosition().getRowIndex()));
+        metanums.addAll(dimtobyte(this.getStartPosition().getColumnIndex()));
+        metanums.addAll(dimtobyte(this.getGoalPosition().getRowIndex()));
+        metanums.addAll(dimtobyte(this.getGoalPosition().getColumnIndex()));
+
+        byte[] bytearray = new byte[(this.getRows() * this.getColumns()) + metanums.size()];
+        for (int i = 0; i < metanums.size(); i++) {
+            if(metanums.get(i) < 0)
+                bytearray[i] = (byte) -(metanums.get(i).byteValue());
+            else
+                bytearray[i] = metanums.get(i).byteValue();
+        }
+        int place = metanums.size();
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getColumns(); j++) {
+                bytearray[place] = (byte) GetPositionVal(i, j);
+                place++;
+            }
+        }
+        return bytearray;
+    }
+
+    /**utility method to turn dimensions into byte or bytes
+     * @param dim the dimension we want to convert to bytes
+     * @return a bytearray of the decoded int
+     */
+    private LinkedList<Integer> dimtobyte(int dim) {
+        LinkedList<Integer> numlist = new LinkedList<>();
+        if(dim > 127){
+            int rest = 0;
+            while(dim/127 > 127){
+                dim -= 16129;
+                numlist.add(0,128);
+            }
+            numlist.add((int)(dim/127) - 256);
+            rest = dim%127;
+            numlist.add(rest);
+            return numlist;
+        }
+        numlist.add(dim);
+        return numlist;
+    }
+
     /** Grid setter by index.
      * @param row - The specified cell's row.
      * @param column - The specified cell's column.
@@ -170,51 +220,6 @@ public class Maze implements Serializable {
     }
 
 
-    /**
-     * @return a uncompressed byte array
-     */
-    public byte[] toByteArray() {
-        LinkedList<Integer> metanums = new LinkedList<>();
-        metanums.addAll(dimtobyte(this.getRows()));
-        metanums.addAll(dimtobyte(this.getColumns()));
-        metanums.addAll(dimtobyte(this.getStartPosition().getRowIndex()));
-        metanums.addAll(dimtobyte(this.getStartPosition().getColumnIndex()));
-        metanums.addAll(dimtobyte(this.getGoalPosition().getRowIndex()));
-        metanums.addAll(dimtobyte(this.getGoalPosition().getColumnIndex()));
 
-        byte[] bytearray = new byte[(this.getRows() * this.getColumns()) + metanums.size()];
-        for (int i = 0; i < metanums.size(); i++) {
-            bytearray[i] = metanums.get(i).byteValue();
-        }
-        int place = metanums.size();
-        for (int i = 0; i < this.getRows(); i++) {
-            for (int j = 0; j < this.getColumns(); j++) {
-                bytearray[place] = (byte) GetPositionVal(i, j);
-                place++;
-            }
-        }
-        return bytearray;
-    }
-
-    /**utility method to turn dimensions into byte or bytes
-     * @param dim the dimension we want to convert to bytes
-     * @return a bytearray of the decoded int
-     */
-    private LinkedList<Integer> dimtobyte(int dim) {
-        LinkedList<Integer> numlist = new LinkedList<>();
-        if(dim > 255){
-            int rest = 0;
-            while(dim/255 > 255){
-                dim -= 65025;
-                numlist.add(0,-255);
-            }
-            numlist.add((int) dim/255);
-            rest = dim - (((int)(dim/255)) * 255);
-            numlist.add(rest);
-            return numlist;
-        }
-        numlist.add(dim);
-        return numlist;
-    }
 }
 

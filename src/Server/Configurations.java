@@ -59,19 +59,16 @@ public class Configurations {
      * the method intializes all data members
      */
     private static void Initialize(){
-      //  try{
-           // Properties properties = new Properties();
-           // InputStream configfile = new FileInputStream("resources/config.properties");
-            Generators = new HashMap<>();
-            Searchers = new HashMap<>();
+        Generators = new HashMap<>();
+        Searchers = new HashMap<>();
 
-            Generators.put("EmptyMazeGenerator", new EmptyMazeGenerator());
-            Generators.put("SimpleMazeGenerator", new SimpleMazeGenerator());
-            Generators.put("MyMazeGenerator", new MyMazeGenerator());
+        Generators.put("EmptyMazeGenerator", new EmptyMazeGenerator());
+        Generators.put("SimpleMazeGenerator", new SimpleMazeGenerator());
+        Generators.put("MyMazeGenerator", new MyMazeGenerator());
 
-            Searchers.put("BestFirstSearch", new BestFirstSearch());
-            Searchers.put("BreadthFirstSearch", new BreadthFirstSearch());
-            Searchers.put("DepthFirstSearch", new DepthFirstSearch());
+        Searchers.put("BestFirstSearch", new BestFirstSearch());
+        Searchers.put("BreadthFirstSearch", new BreadthFirstSearch());
+        Searchers.put("DepthFirstSearch", new DepthFirstSearch());
 
 
     }

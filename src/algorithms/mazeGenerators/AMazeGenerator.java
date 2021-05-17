@@ -10,7 +10,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @param columns Number of columns for the generated maze we measure
      * @return long - The time measured.
      */
-    public long measureAlgorithmTimeMillis(int rows, int columns) throws Exception {
+    public long measureAlgorithmTimeMillis(int rows, int columns){
         long s = System.currentTimeMillis();
         generate(rows, columns);
         return (System.currentTimeMillis() - s);
@@ -24,14 +24,20 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @param fill the int the defaultive maze will be constructed with.
      * @return Maze - a filled maze
      */
-    protected Maze FillMaze(int rows, int columns, Position start, Position goal, int fill) throws Exception {
-        int[][] map = new int[rows][columns];
-        Maze maze = new Maze(start, goal, map);
-        for (int i=0; i <= rows - 1; i++){
-            for (int j=0; j <= columns - 1; j++){
-                maze.set(i,j,fill);
+    protected Maze FillMaze(int rows, int columns, Position start, Position goal, int fill){
+        try{
+            int[][] map = new int[rows][columns];
+            Maze maze = new Maze(start, goal, map);
+            for (int i=0; i <= rows - 1; i++){
+                for (int j=0; j <= columns - 1; j++){
+                    maze.set(i,j,fill);
+                }
             }
+            return maze;
         }
-        return maze;
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

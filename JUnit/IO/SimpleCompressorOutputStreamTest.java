@@ -18,7 +18,7 @@ class SimpleCompressorOutputStreamTest {
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
         Maze maze = null; //Generate new maze
         try {
-            maze = mazeGenerator.generate(200, 5);
+            maze = mazeGenerator.generate(200, 10);
         } catch (Exception e) {
             e.printStackTrace();
         }
